@@ -1,4 +1,4 @@
-# FIT2101 Project
+# Grace Church mobile app project
 
 ## Overview
 
