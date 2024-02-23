@@ -9,6 +9,6 @@ into the directory or modify their information.
 
 - ChurchDirMobile
   - Contains code for the frontend in React Native.
-- Backend
+- ChurchDirAPI
   - Contains code for the backend in ASP.Net core with the DynamoDB database used from AWS
   - RESTful API (HTTP) is used for backend tasks
