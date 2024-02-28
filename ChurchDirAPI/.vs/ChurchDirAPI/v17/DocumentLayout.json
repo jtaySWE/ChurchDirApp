@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\models\\member.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +18,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Member.cs",
               "DocumentMoniker": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Models\\Member.cs",
               "RelativeDocumentMoniker": "APIBackend\\Models\\Member.cs",
               "ToolTip": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Models\\Member.cs",
               "RelativeToolTip": "APIBackend\\Models\\Member.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAXAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA8AAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T08:00:23.925Z",
+              "WhenOpened": "2024-02-28T12:04:11.725Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MembersController.cs",
               "DocumentMoniker": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Controllers\\MembersController.cs",
               "RelativeDocumentMoniker": "APIBackend\\Controllers\\MembersController.cs",
               "ToolTip": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Controllers\\MembersController.cs",
               "RelativeToolTip": "APIBackend\\Controllers\\MembersController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAjAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAQwCYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T06:41:19.558Z"
+              "WhenOpened": "2024-02-23T06:41:19.558Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -7,13 +7,16 @@ namespace APIBackend.Models
     public class Member
     {
         [DynamoDBHashKey("pk")]
-        public string pk => Id;
+        public string pk => Username;
 
         [DynamoDBRangeKey("sk")]
         public string sk => Surname;
 
-        [DynamoDBProperty("id")]
-        public string Id { get; set; }
+        [DynamoDBProperty("username")]
+        public string Username { get; set; }
+
+        [DynamoDBProperty("password")]
+        public string Password { get; set; }
 
         [DynamoDBProperty("givenName")]
         public string GivenName { get; set; }
@@ -29,5 +32,8 @@ namespace APIBackend.Models
 
         [DynamoDBProperty("address")]
         public string Address { get; set; }
+
+        [DynamoDBProperty("isAdmin")]
+        public bool IsAdmin { get; set; }
     }
 }

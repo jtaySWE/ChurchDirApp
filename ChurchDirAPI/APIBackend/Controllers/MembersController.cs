@@ -21,10 +21,10 @@ namespace APIBackend.Controllers
             return Ok(members);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMember(string id)
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetMember(string username)
         {
-            var member = await _dbContext.LoadAsync<Member>(id);
+            var member = await _dbContext.LoadAsync<Member>(username);
             if (member == null)
             {
                 return NotFound();
@@ -33,23 +33,42 @@ namespace APIBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMember(Member newMember)
+        public async Task<IActionResult> SignUp(Member newMember)
         {
             var member = await _dbContext.LoadAsync<Member>(newMember.pk, newMember.sk);
 
             // Make sure this member is not already in the database
             if (member != null)
             {
-                return BadRequest($"The member {newMember.GivenName} and {newMember.Surname} already exists.");
+                return BadRequest($"The member with username {newMember.Username} already exists.");
             }
-            await _dbContext.SaveAsync(member);
+            await _dbContext.SaveAsync(newMember);
+            return Ok(newMember);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(string username, string password)
+        {
+            var member = await _dbContext.LoadAsync<Member>(username);
+
+            // Make sure this member is in the database
+            if (member == null)
+            {
+                return BadRequest("Incorrect username.");
+            }
+
+            // Check if password matches
+            if (member.Password != password)
+            {
+                return BadRequest("Incorrect password.");
+            }
             return Ok(member);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveMember(string id)
+        [HttpDelete("{username}")]
+        public async Task<IActionResult> RemoveMember(string username)
         {
-            var member = await _dbContext.LoadAsync<Member>(id);
+            var member = await _dbContext.LoadAsync<Member>(username);
 
             // Make sure member is in the database
             if (member == null)
@@ -59,6 +78,22 @@ namespace APIBackend.Controllers
 
             await _dbContext.DeleteAsync(member);
             return NoContent();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ChangePassword(string username, string password)
+        {
+            var member = await _dbContext.LoadAsync<Member>(username);
+
+            // Make sure member is in the database
+            if (member == null)
+            {
+                return NotFound();
+            }
+            member.Password = password;
+
+            await _dbContext.SaveAsync(member);
+            return Ok("Password changed successfully!");
         }
 
         [HttpPut]
@@ -72,7 +107,7 @@ namespace APIBackend.Controllers
                 return NotFound();
             }
 
-            await _dbContext.SaveAsync(member);
+            await _dbContext.SaveAsync(currMember);
             return Ok(currMember);
         }
     }
