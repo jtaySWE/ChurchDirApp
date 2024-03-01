@@ -32,8 +32,7 @@ export default function MemberList() {
                 </View>
               )}
               renderSectionHeader={({section: {title, data}}) => (
-                data.length > 0 ?
-                (<Text>{title}</Text>) : null
+                data.length > 0 && (<Text>{title}</Text>)
               )}
         />
     )

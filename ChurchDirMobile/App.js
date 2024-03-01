@@ -5,7 +5,7 @@ import Member from './Screens/Member';
 import MemberList from './Screens/MemberList';
 
 function MemberScreen() {
-  return (<Member/>)
+  return (<Member isSignUp={false}/>)
 }
 
 function MemberListScreen() {
