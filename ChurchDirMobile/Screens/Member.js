@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { useForm } from 'react-hook-form';
 import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
