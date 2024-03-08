@@ -17,15 +17,7 @@ builder.Services.AddDefaultAWSOptions(awsOptions);
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 
-// JSON Serializer
-builder.Services.AddControllers().AddNewtonsoftJson(options => 
-options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore).AddNewtonsoftJson(
-    options=>options.SerializerSettings.ContractResolver=new DefaultContractResolver());
-
 var app = builder.Build();
-
-// Enable CORS
-app.UseCors(c => c.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

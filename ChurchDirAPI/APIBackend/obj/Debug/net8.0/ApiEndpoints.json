@@ -11,8 +11,82 @@
   },
   {
     "ContainingType": "APIBackend.Controllers.MembersController",
-    "Method": "AddMember",
-    "RelativePath": "api/Members",
+    "Method": "ChangePassword",
+    "RelativePath": "ChangePwd",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIBackend.Controllers.MembersController",
+    "Method": "RemoveMember",
+    "RelativePath": "DeleteMember/{username}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIBackend.Controllers.MembersController",
+    "Method": "GetMember",
+    "RelativePath": "GetMember/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIBackend.Controllers.MembersController",
+    "Method": "SignIn",
+    "RelativePath": "SignIn",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "APIBackend.Controllers.MembersController",
+    "Method": "SignUp",
+    "RelativePath": "SignUp",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -28,7 +102,7 @@
   {
     "ContainingType": "APIBackend.Controllers.MembersController",
     "Method": "UpdateMember",
-    "RelativePath": "api/Members",
+    "RelativePath": "UpdateMember",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -36,38 +110,6 @@
       {
         "Name": "currMember",
         "Type": "APIBackend.Models.Member",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "APIBackend.Controllers.MembersController",
-    "Method": "GetMember",
-    "RelativePath": "api/Members/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "APIBackend.Controllers.MembersController",
-    "Method": "RemoveMember",
-    "RelativePath": "api/Members/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.String",
         "IsRequired": true
       }
     ],

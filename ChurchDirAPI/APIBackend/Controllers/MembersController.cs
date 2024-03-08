@@ -1,5 +1,4 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using APIBackend.Models;
 
@@ -21,7 +20,7 @@ namespace APIBackend.Controllers
             return Ok(members);
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("/GetMember/{username}")]
         public async Task<IActionResult> GetMember(string username)
         {
             var member = await _dbContext.LoadAsync<Member>(username);
@@ -32,10 +31,10 @@ namespace APIBackend.Controllers
             return Ok(member);
         }
 
-        [HttpPost]
+        [HttpPost("/SignUp")]
         public async Task<IActionResult> SignUp(Member newMember)
         {
-            var member = await _dbContext.LoadAsync<Member>(newMember.pk, newMember.sk);
+            var member = await _dbContext.LoadAsync<Member>(newMember.Username);
 
             // Make sure this member is not already in the database
             if (member != null)
@@ -46,7 +45,7 @@ namespace APIBackend.Controllers
             return Ok(newMember);
         }
 
-        [HttpPost]
+        [HttpPost("/SignIn")]
         public async Task<IActionResult> SignIn(string username, string password)
         {
             var member = await _dbContext.LoadAsync<Member>(username);
@@ -65,7 +64,7 @@ namespace APIBackend.Controllers
             return Ok(member);
         }
 
-        [HttpDelete("{username}")]
+        [HttpDelete("/DeleteMember/{username}")]
         public async Task<IActionResult> RemoveMember(string username)
         {
             var member = await _dbContext.LoadAsync<Member>(username);
@@ -80,7 +79,7 @@ namespace APIBackend.Controllers
             return NoContent();
         }
 
-        [HttpPut]
+        [HttpPut("/ChangePwd")]
         public async Task<IActionResult> ChangePassword(string username, string password)
         {
             var member = await _dbContext.LoadAsync<Member>(username);
@@ -96,10 +95,10 @@ namespace APIBackend.Controllers
             return Ok("Password changed successfully!");
         }
 
-        [HttpPut]
+        [HttpPut("/UpdateMember")]
         public async Task<IActionResult> UpdateMember(Member currMember)
         {
-            var member = await _dbContext.LoadAsync<Member>(currMember.pk, currMember.sk);
+            var member = await _dbContext.LoadAsync<Member>(currMember.Username);
 
             // Make sure member is in the database
             if (member == null)

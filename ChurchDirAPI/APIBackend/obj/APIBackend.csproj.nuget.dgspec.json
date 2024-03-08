@@ -47,11 +47,11 @@
           "dependencies": {
             "AWSSDK.Core": {
               "target": "Package",
-              "version": "[3.7.302.12, )"
+              "version": "[3.7.302.15, )"
             },
             "AWSSDK.DynamoDBv2": {
               "target": "Package",
-              "version": "[3.7.301.14, )"
+              "version": "[3.7.301.18, )"
             },
             "AWSSDK.Extensions.NETCore.Setup": {
               "target": "Package",

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "AWSSDK.Core/3.7.302.12": {
+      "AWSSDK.Core/3.7.302.15": {
         "type": "package",
         "compile": {
           "lib/net8.0/AWSSDK.Core.dll": {
@@ -15,10 +15,10 @@
           }
         }
       },
-      "AWSSDK.DynamoDBv2/3.7.301.14": {
+      "AWSSDK.DynamoDBv2/3.7.301.18": {
         "type": "package",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.302.12, 4.0.0)"
+          "AWSSDK.Core": "[3.7.302.15, 4.0.0)"
         },
         "compile": {
           "lib/net8.0/AWSSDK.DynamoDBv2.dll": {
@@ -287,15 +287,15 @@
     }
   },
   "libraries": {
-    "AWSSDK.Core/3.7.302.12": {
-      "sha512": "OaFHc2FD3vYldtdaH0Sqob3NoTXFBBMKxmq/VV3of5l+hHZmcaAjpJhh1Et0BxggeHqimVOTaoQxEO0PXQHeuw==",
+    "AWSSDK.Core/3.7.302.15": {
+      "sha512": "DgSlbR4JIthe+iYl4qVfz3Lkh59th/gNPYloxf9iU0pIx3hHYqJ0UJRg9mwBcmpeyBccRSwdNoo9yF9X3tb/rg==",
       "type": "package",
-      "path": "awssdk.core/3.7.302.12",
+      "path": "awssdk.core/3.7.302.15",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "awssdk.core.3.7.302.12.nupkg.sha512",
+        "awssdk.core.3.7.302.15.nupkg.sha512",
         "awssdk.core.nuspec",
         "images/AWSLogo.png",
         "lib/net35/AWSSDK.Core.dll",
@@ -316,17 +316,17 @@
         "tools/account-management.ps1"
       ]
     },
-    "AWSSDK.DynamoDBv2/3.7.301.14": {
-      "sha512": "PRNCBQif2E8LcN2pXHqgU8vNrgnxgbcu9KpNHyaQFgOBm4o9IwjFaco64SQfhzKEDGEmgl/bnD9ocmNGL1SALA==",
+    "AWSSDK.DynamoDBv2/3.7.301.18": {
+      "sha512": "DhmXucuPYZsLoeO7coVKqsZFwQ+/KaCuXBop9LQoFyRh//QWgl7CjP9ab2/gqRJQGaTyiPBroA61bUgkZ/JooA==",
       "type": "package",
-      "path": "awssdk.dynamodbv2/3.7.301.14",
+      "path": "awssdk.dynamodbv2/3.7.301.18",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "analyzers/dotnet/cs/AWSSDK.DynamoDBv2.CodeAnalysis.dll",
         "analyzers/dotnet/cs/SharedAnalysisCode.dll",
-        "awssdk.dynamodbv2.3.7.301.14.nupkg.sha512",
+        "awssdk.dynamodbv2.3.7.301.18.nupkg.sha512",
         "awssdk.dynamodbv2.nuspec",
         "images/AWSLogo.png",
         "lib/net35/AWSSDK.DynamoDBv2.dll",
@@ -936,8 +936,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "AWSSDK.Core >= 3.7.302.12",
-      "AWSSDK.DynamoDBv2 >= 3.7.301.14",
+      "AWSSDK.Core >= 3.7.302.15",
+      "AWSSDK.DynamoDBv2 >= 3.7.301.18",
       "AWSSDK.Extensions.NETCore.Setup >= 3.7.300",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 8.0.2",
       "Swashbuckle.AspNetCore >= 6.5.0"
@@ -989,11 +989,11 @@
         "dependencies": {
           "AWSSDK.Core": {
             "target": "Package",
-            "version": "[3.7.302.12, )"
+            "version": "[3.7.302.15, )"
           },
           "AWSSDK.DynamoDBv2": {
             "target": "Package",
-            "version": "[3.7.301.14, )"
+            "version": "[3.7.301.18, )"
           },
           "AWSSDK.Extensions.NETCore.Setup": {
             "target": "Package",
