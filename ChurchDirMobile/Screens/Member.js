@@ -24,7 +24,7 @@ export default function Member({isSignUp}) {
         {isSignUp && <Input name="password" control={control} placeholder="Password"/>}
         {isSignUp && <Input name="confirmPwd" control={control} placeholder="Confirm Password"/>}
         <Button 
-        title={isSignUp ? "Sign up" : "Save"}
+        title={isSignUp ? "Register" : "Save"}
         onPress={handleSubmit(onSubmit)}
         />
         </ScrollView>
