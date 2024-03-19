@@ -46,7 +46,7 @@ namespace APIBackend.Controllers
         }
 
         [HttpPost("/SignIn")]
-        public async Task<IActionResult> SignIn(string username, string password)
+        public async Task<IActionResult> SignIn([FromForm] string username, [FromForm] string password)
         {
             var member = await _dbContext.LoadAsync<Member>(username);
 
@@ -80,7 +80,7 @@ namespace APIBackend.Controllers
         }
 
         [HttpPut("/ChangePwd")]
-        public async Task<IActionResult> ChangePassword(string username, string password)
+        public async Task<IActionResult> ChangePassword([FromForm] string username, [FromForm] string password)
         {
             var member = await _dbContext.LoadAsync<Member>(username);
 

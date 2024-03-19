@@ -8,7 +8,18 @@ import React from 'react';
 export default function Login({handleLogin}) {
   const {control, handleSubmit} = useForm()
   const [isRegistering, setRegistering] = React.useState(false)
+  const apiUrl = "http://localhost:5087/"
+  const loginUrl = apiUrl + "SignIn"
+  
   const onSubmit = (data) => {
+    /*fetch(loginUrl, {
+      method: "POST",
+      body: data
+    }).then(res => {
+      if (res.ok) {
+        handleLogin()
+      }
+    })*/
     handleLogin()
   }
 

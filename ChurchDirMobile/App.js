@@ -7,14 +7,6 @@ import Login from './Screens/Login';
 import React from 'react';
 import { SimpleLineIcons } from '@expo/vector-icons';
 
-function MemberScreen() {
-  return (<Member isSignUp={false}/>)
-}
-
-function MemberListScreen() {
-  return (<MemberList/>)
-}
-
 export default function App() {
 
   const Tab = createBottomTabNavigator()
@@ -36,14 +28,14 @@ export default function App() {
           <Tab.Navigator 
           initialRouteName='Home'
           >
-            <Tab.Screen name='Home' component={MemberScreen}
+            <Tab.Screen name='Home' children={() => (<Member isSignUp={false}/>)}
             options={
               {
                 headerRight: () => (<SimpleLineIcons.Button name='logout' 
                   onPress={logoutMember} color="black" backgroundColor="white"/>)
               }
             }/>
-            <Tab.Screen name='Members' component={MemberListScreen}/>
+            <Tab.Screen name='Members' children={() => (<MemberList/>)}/>
           </Tab.Navigator>
         </NavigationContainer> : 
         <Login handleLogin={loginMember}/>}

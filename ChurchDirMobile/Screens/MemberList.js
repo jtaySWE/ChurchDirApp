@@ -9,19 +9,25 @@ export default function MemberList() {
       return name.slice(0, 1).toUpperCase();
     }
 
-    const fetchedData = []
+    const apiUrl = "http://localhost:5087/"
+    const getMembersUrl = apiUrl + "api/Members"
+    const [list, setList] = React.useState([])
 
-    const list = fetchedData
-      .reduce(function (list, dataObj, index) {
-          let listItem = list.find((item) => item.title && item.title === getFirstLetterFrom(dataObj));
-          if (!listItem) {
-            list.push({"title": getFirstLetterFrom(dataObj), "data": [dataObj]})
-          } else {
-            listItem.data.push(dataObj)
-          }
+    fetch(getMembersUrl)
+    .then(res => res.json())
+    .then(result => {
+      setList(result
+        .reduce(function (list, dataObj, index) {
+            let listItem = list.find((item) => item.title && item.title === getFirstLetterFrom(dataObj));
+            if (!listItem) {
+              list.push({"title": getFirstLetterFrom(dataObj), "data": [dataObj]})
+            } else {
+              listItem.data.push(dataObj)
+            }
 
-          return list;
-      }, []);
+            return list;
+        }, []))
+    });
 
     return (
         <SectionList

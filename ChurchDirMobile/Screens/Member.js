@@ -4,11 +4,31 @@ import { Button, ScrollView, StyleSheet, View } from 'react-native';
 
 export default function Member({isSignUp}) {
   const {control, handleSubmit} = useForm()
+  const apiUrl = "http://localhost:5087/"
+  const signUpUrl = apiUrl + "SignUp"
+  const updateUrl = apiUrl + "UpdateMember"
+  
   const onSubmit = (data) => {
+    const confirmPwd = data["confirmPwd"]
+    delete data["confirmPwd"]
+    
     if (isSignUp) {
-
+      // Check if password matches
+      if (data["password"] == confirmPwd) {
+        fetch(signUpUrl, 
+          {
+            method: "POST",
+            body: data
+          })
+      } else {
+        alert("Make sure your confirmed password matches!")
+      }
     } else {
-      
+      fetch(updateUrl, 
+        {
+          method: "PUT",
+          body: data
+        })
     }
   }
 
