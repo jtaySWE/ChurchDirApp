@@ -12,15 +12,21 @@ export default function Login({handleLogin}) {
   const loginUrl = apiUrl + "SignIn"
   
   const onSubmit = (data) => {
-    /*fetch(loginUrl, {
+    fetch(loginUrl, {
       method: "POST",
+      /*headers: {
+        "Content-Type": "multipart/form-data"
+      },*/
       body: data
     }).then(res => {
       if (res.ok) {
         handleLogin()
+      } else {
+        alert(res.text())
       }
-    })*/
-    handleLogin()
+    }).catch(error => {
+      alert(error)
+    })
   }
 
   const onSignUp = () => {

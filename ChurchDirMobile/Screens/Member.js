@@ -19,6 +19,8 @@ export default function Member({isSignUp}) {
           {
             method: "POST",
             body: data
+          }).catch(error => {
+            alert(error)
           })
       } else {
         alert("Make sure your confirmed password matches!")
@@ -28,6 +30,8 @@ export default function Member({isSignUp}) {
         {
           method: "PUT",
           body: data
+        }).catch(error => {
+          alert(error)
         })
     }
   }

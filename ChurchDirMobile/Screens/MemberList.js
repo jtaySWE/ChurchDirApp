@@ -27,6 +27,8 @@ export default function MemberList() {
 
             return list;
         }, []))
+    }).catch(error => {
+      alert(error)
     });
 
     return (
