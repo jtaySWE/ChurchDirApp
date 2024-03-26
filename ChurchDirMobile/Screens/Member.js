@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Member({isSignUp, handleSignUp, loggedUsername}) {
-  const {control, handleSubmit} = useForm()
+  const {control, handleSubmit, setValue} = useForm()
   const apiUrl = "http://localhost:5087/"
   const signUpUrl = apiUrl + "SignUp"
   const updateUrl = apiUrl + "UpdateMember"
@@ -17,8 +17,17 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
   const [address, setAddress] = React.useState("")
   let passwordFromUser = ""
 
+  // Used for placing in user details after just signing in
+  useEffect(() => {
+    setValue("givenName", givenName)
+    setValue("surname", surname)
+    setValue("email", email)
+    setValue("phone", phone)
+    setValue("address", address)
+  })
+
   // If not for signing up, load in details of logged in member
-  if (!isSignUp) {
+  if (!isSignUp && loggedUsername) {
     fetch(getUserUrl)
     .then(res => res.json())
     .then(result => {
