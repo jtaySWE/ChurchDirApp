@@ -11,8 +11,10 @@ export default function App() {
 
   const Tab = createBottomTabNavigator()
   const [isSignedIn, setSignIn] = React.useState(false)
+  const [loggedUser, setUser] = React.useState("")
   
-  const loginMember = () => {
+  const loginMember = (user) => {
+    setUser(user)
     setSignIn(true)
   }
 
@@ -28,7 +30,8 @@ export default function App() {
           <Tab.Navigator 
           initialRouteName='Home'
           >
-            <Tab.Screen name='Home' children={() => (<Member isSignUp={false}/>)}
+            <Tab.Screen name='Home' children={() => (<Member isSignUp={false} handleSignUp={null} 
+            loggedUsername={loggedUser}/>)}
             options={
               {
                 headerRight: () => (<SimpleLineIcons.Button name='logout' 

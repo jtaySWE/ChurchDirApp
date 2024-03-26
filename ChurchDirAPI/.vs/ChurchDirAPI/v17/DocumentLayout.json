@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|c:\\users\\jason\\onedrive\\documents\\github\\churchdirapp\\churchdirapi\\apibackend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D2581934-BEF2-48D8-80D2-2C44DA334778}|APIBackend\\APIBackend.csproj|solutionrelative:apibackend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "APIBackend\\Properties\\launchSettings.json",
@@ -34,25 +34,24 @@
               "RelativeToolTip": "APIBackend\\Properties\\launchSettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-03-22T14:05:17.132Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-22T14:05:17.132Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Program.cs",
               "RelativeDocumentMoniker": "APIBackend\\Program.cs",
               "ToolTip": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Program.cs",
               "RelativeToolTip": "APIBackend\\Program.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABMAAAAaAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABYAAABHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-22T00:57:10.804Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MembersController.cs",
               "DocumentMoniker": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\Controllers\\MembersController.cs",
               "RelativeDocumentMoniker": "APIBackend\\Controllers\\MembersController.cs",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "APIBackend\\Controllers\\MembersController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T06:41:19.558Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-23T06:41:19.558Z"
             }
           ]
         }

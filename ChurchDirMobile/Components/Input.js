@@ -2,10 +2,10 @@ import { StyleSheet, TextInput } from 'react-native';
 import { useController } from 'react-hook-form';
 
 
-export default function Input({name, control, placeholder}) {
+export default function Input({name, control, placeholder, defValue}) {
     const {field} = useController({
       control,
-      defaultValue: '',
+      defaultValue: defValue,
       name
     })
     return (

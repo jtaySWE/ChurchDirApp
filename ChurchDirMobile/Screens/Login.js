@@ -12,17 +12,18 @@ export default function Login({handleLogin}) {
   const loginUrl = apiUrl + "SignIn"
   
   const onSubmit = (data) => {
+    let reqData = new FormData()
+
+    for(const field of Object.keys(data)) {
+      reqData.append(field, data[field])
+    }
+
     fetch(loginUrl, {
       method: "POST",
-      /*headers: {
-        "Content-Type": "multipart/form-data"
-      },*/
-      body: data
+      body: reqData
     }).then(res => {
       if (res.ok) {
-        handleLogin()
-      } else {
-        alert(res.text())
+        handleLogin(data.username)
       }
     }).catch(error => {
       alert(error)
@@ -33,13 +34,17 @@ export default function Login({handleLogin}) {
     setRegistering(true)
   }
 
+  const onRegistered = () => {
+    setRegistering(false)
+  }
+
   return (
     <View style={styles.container}>
       { isRegistering ? 
-      <Member isSignUp={true}/>
+      <Member isSignUp={true} handleSignUp={onRegistered} loggedUsername=""/>
       : <ScrollView>
-        <Input name="username" control={control} placeholder="Username"/>
-        <Input name="password" control={control} placeholder="Password"/>
+        <Input name="username" control={control} placeholder="Username" defValue=""/>
+        <Input name="password" control={control} placeholder="Password" defValue=""/>
         <Button 
         title="Login"
         onPress={handleSubmit(onSubmit)}

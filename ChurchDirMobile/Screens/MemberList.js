@@ -1,5 +1,5 @@
-import { SectionList } from "react-native";
-
+import { SectionList , View, Text } from "react-native";
+import React from "react";
 
 export default function MemberList() {
 
@@ -16,6 +16,12 @@ export default function MemberList() {
     fetch(getMembersUrl)
     .then(res => res.json())
     .then(result => {
+      result.sort((a, b) => {
+        return (a.givenName + ' ' + a.surname).toLowerCase()
+        .localeCompare((b.givenName + ' ' + b.surname).toLowerCase())
+      })
+
+      // Put list of all members into sections by name
       setList(result
         .reduce(function (list, dataObj, index) {
             let listItem = list.find((item) => item.title && item.title === getFirstLetterFrom(dataObj));
