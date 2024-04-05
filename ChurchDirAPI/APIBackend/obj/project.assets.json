@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "Amazon.Lambda.APIGatewayEvents/2.7.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Amazon.Lambda.APIGatewayEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Amazon.Lambda.APIGatewayEvents.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "AWSSDK.Core/3.7.302.15": {
         "type": "package",
         "compile": {
@@ -287,6 +300,24 @@
     }
   },
   "libraries": {
+    "Amazon.Lambda.APIGatewayEvents/2.7.0": {
+      "sha512": "HAbdRKLzvUqRg/fItan7up/PWsj6vQfYF+1a4YV6sv1bq5TuK/ra+ndJwWMlzL+MFJzJaHwCmtkyBbh/vz8Oig==",
+      "type": "package",
+      "path": "amazon.lambda.apigatewayevents/2.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "amazon.lambda.apigatewayevents.2.7.0.nupkg.sha512",
+        "amazon.lambda.apigatewayevents.nuspec",
+        "lib/net8.0/Amazon.Lambda.APIGatewayEvents.dll",
+        "lib/net8.0/Amazon.Lambda.APIGatewayEvents.xml",
+        "lib/netcoreapp3.1/Amazon.Lambda.APIGatewayEvents.dll",
+        "lib/netcoreapp3.1/Amazon.Lambda.APIGatewayEvents.xml",
+        "lib/netstandard2.0/Amazon.Lambda.APIGatewayEvents.dll",
+        "lib/netstandard2.0/Amazon.Lambda.APIGatewayEvents.xml"
+      ]
+    },
     "AWSSDK.Core/3.7.302.15": {
       "sha512": "DgSlbR4JIthe+iYl4qVfz3Lkh59th/gNPYloxf9iU0pIx3hHYqJ0UJRg9mwBcmpeyBccRSwdNoo9yF9X3tb/rg==",
       "type": "package",
@@ -939,6 +970,7 @@
       "AWSSDK.Core >= 3.7.302.15",
       "AWSSDK.DynamoDBv2 >= 3.7.301.18",
       "AWSSDK.Extensions.NETCore.Setup >= 3.7.300",
+      "Amazon.Lambda.APIGatewayEvents >= 2.7.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 8.0.2",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
@@ -998,6 +1030,10 @@
           "AWSSDK.Extensions.NETCore.Setup": {
             "target": "Package",
             "version": "[3.7.300, )"
+          },
+          "Amazon.Lambda.APIGatewayEvents": {
+            "target": "Package",
+            "version": "[2.7.0, )"
           },
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",

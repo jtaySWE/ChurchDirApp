@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "UK1/9lR4m8otaLjiXMs5C/4Xs5LAMSlqX+2ylDf8gpewFfSJxORYQrtq7P6K5Ih3l3DXjK+H7wVO/hyBX7fvGg==",
+  "dgSpecHash": "956pdzzMJXEwps+nGeRg3ucJtNe0R4VwLr9mzGmx3l/CNPQ7feRwI4ihpBFg/B5zfmgcgWaWNgLkU2WrpcRdcg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\APIBackend\\APIBackend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jason\\.nuget\\packages\\amazon.lambda.apigatewayevents\\2.7.0\\amazon.lambda.apigatewayevents.2.7.0.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\awssdk.core\\3.7.302.15\\awssdk.core.3.7.302.15.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\awssdk.dynamodbv2\\3.7.301.18\\awssdk.dynamodbv2.3.7.301.18.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\awssdk.extensions.netcore.setup\\3.7.300\\awssdk.extensions.netcore.setup.3.7.300.nupkg.sha512",
