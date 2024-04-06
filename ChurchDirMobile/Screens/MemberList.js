@@ -5,20 +5,20 @@ export default function MemberList() {
 
     // We get first letter of name from member
     function getFirstLetterFrom(obj) {
-      const name = obj.givenName + ' ' + obj.surname
+      const name = obj.GivenName + ' ' + obj.Surname
       return name.slice(0, 1).toUpperCase();
     }
 
-    const apiUrl = "http://localhost:5087/"
-    const getMembersUrl = apiUrl + "api/Members"
+    const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
+    const getMembersUrl = apiUrl + "AllMembers"
     const [list, setList] = React.useState([])
 
     fetch(getMembersUrl)
     .then(res => res.json())
     .then(result => {
       result.sort((a, b) => {
-        return (a.givenName + ' ' + a.surname).toLowerCase()
-        .localeCompare((b.givenName + ' ' + b.surname).toLowerCase())
+        return (a.GivenName + ' ' + a.Surname).toLowerCase()
+        .localeCompare((b.GivenName + ' ' + b.Surname).toLowerCase())
       })
 
       // Put list of all members into sections by name
@@ -42,7 +42,7 @@ export default function MemberList() {
             sections={list}
             renderItem={({item}) => (
                 <View>
-                  <Text>{item.givenName + ' ' + item.surname}</Text>
+                  <Text>{item.GivenName + ' ' + item.Surname}</Text>
                 </View>
               )}
               renderSectionHeader={({section: {title, data}}) => (

@@ -1,0 +1,9 @@
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\ChurchAWSLambda.deps.json
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\ChurchAWSLambda.runtimeconfig.json
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\ChurchAWSLambda.pdb
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\Amazon.Lambda.APIGatewayEvents.dll
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\Amazon.Lambda.Core.dll
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\Amazon.Lambda.Serialization.SystemTextJson.dll
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\AWSSDK.Core.dll
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\AWSSDK.DynamoDBv2.dll
+C:\Users\jason\OneDrive\Documents\GitHub\ChurchDirApp\ChurchDirAPI\ChurchAWSLambda\bin\Release\net8.0\publish\ChurchAWSLambda.dll

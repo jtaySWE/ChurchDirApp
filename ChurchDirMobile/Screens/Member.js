@@ -5,10 +5,10 @@ import React, { useEffect } from 'react';
 
 export default function Member({isSignUp, handleSignUp, loggedUsername}) {
   const {control, handleSubmit, setValue} = useForm()
-  const apiUrl = "http://localhost:5087/"
-  const signUpUrl = apiUrl + "SignUp"
-  const updateUrl = apiUrl + "UpdateMember"
-  const getUserUrl = apiUrl + "GetMember/" + loggedUsername
+  const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
+  const signUpUrl = apiUrl + "Member"
+  const updateUrl = apiUrl + "Member"
+  const getUserUrl = apiUrl + "Member/" + loggedUsername
 
   const [givenName, setGivenName] = React.useState("")
   const [surname, setSurname] = React.useState("")
@@ -19,35 +19,35 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
 
   // Used for placing in user details after just signing in
   useEffect(() => {
-    setValue("givenName", givenName)
-    setValue("surname", surname)
-    setValue("email", email)
-    setValue("phone", phone)
-    setValue("address", address)
-  })
+    setValue("GivenName", givenName)
+    setValue("Surname", surname)
+    setValue("Email", email)
+    setValue("Phone", phone)
+    setValue("Address", address)
+  }, [givenName, surname, email, phone, address])
 
   // If not for signing up, load in details of logged in member
   if (!isSignUp && loggedUsername) {
     fetch(getUserUrl)
     .then(res => res.json())
     .then(result => {
-      setGivenName(result.givenName)
-      setSurname(result.surname)
-      setEmail(result.email)
-      setPhone(result.phone)
-      setAddress(result.address)
-      passwordFromUser = result.password
+      setGivenName(result.GivenName)
+      setSurname(result.Surname)
+      setEmail(result.Email)
+      setPhone(result.Phone)
+      setAddress(result.Address)
+      passwordFromUser = result.Password
     })
   }
   
   const onSubmit = (data) => {
     const confirmPwd = data["confirmPwd"]
     delete data["confirmPwd"]
-    data["isAdmin"] = true
+    data["IsAdmin"] = true
     
     if (isSignUp) {
       // Check if password matches
-      if (data["password"] == confirmPwd) {
+      if (data["Password"] == confirmPwd) {
         fetch(signUpUrl, 
           {
             method: "POST",
@@ -69,8 +69,8 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
       }
     } else {
       // Filling in current username and password before updating member
-      data["username"] = loggedUsername
-      data["password"] = passwordFromUser
+      data["Username"] = loggedUsername
+      data["Password"] = passwordFromUser
       fetch(updateUrl, 
         {
           method: "PUT",
@@ -87,13 +87,13 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
   return (
     <View style={styles.container}>
         <ScrollView>
-        <Input name="givenName" control={control} placeholder="Given name" defValue={givenName}/>
-        <Input name="surname" control={control} placeholder="Surname" defValue={surname}/>
-        <Input name="email" control={control} placeholder="Email" defValue={email}/>
-        <Input name="phone" control={control} placeholder="Phone" defValue={phone}/>
-        <Input name="address" control={control} placeholder="Address" defValue={address}/>
-        {isSignUp && <Input name="username" control={control} placeholder="Username" defValue=""/>}
-        {isSignUp && <Input name="password" control={control} placeholder="Password" defValue=""/>}
+        <Input name="GivenName" control={control} placeholder="Given name" defValue={givenName}/>
+        <Input name="Surname" control={control} placeholder="Surname" defValue={surname}/>
+        <Input name="Email" control={control} placeholder="Email" defValue={email}/>
+        <Input name="Phone" control={control} placeholder="Phone" defValue={phone}/>
+        <Input name="Address" control={control} placeholder="Address" defValue={address}/>
+        {isSignUp && <Input name="Username" control={control} placeholder="Username" defValue=""/>}
+        {isSignUp && <Input name="Password" control={control} placeholder="Password" defValue=""/>}
         {isSignUp && <Input name="confirmPwd" control={control} placeholder="Confirm Password" defValue=""/>}
         <Button 
         title={isSignUp ? "Register" : "Save"}

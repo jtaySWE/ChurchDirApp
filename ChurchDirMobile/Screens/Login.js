@@ -8,19 +8,17 @@ import React from 'react';
 export default function Login({handleLogin}) {
   const {control, handleSubmit} = useForm()
   const [isRegistering, setRegistering] = React.useState(false)
-  const apiUrl = "http://localhost:5087/"
+  const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
   const loginUrl = apiUrl + "SignIn"
   
   const onSubmit = (data) => {
-    let reqData = new FormData()
-
-    for(const field of Object.keys(data)) {
-      reqData.append(field, data[field])
-    }
 
     fetch(loginUrl, {
       method: "POST",
-      body: reqData
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
     }).then(res => {
       if (res.ok) {
         handleLogin(data.username)
