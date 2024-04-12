@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-churchdirmobile-dev-6d435-authRole",
+      "UnauthRoleArn": "arn:aws:iam::590184025842:role/amplify-churchdirmobile-dev-6d435-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::590184025842:role/amplify-churchdirmobile-dev-6d435-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-churchdirmobile-dev-6d435-deployment",
+      "UnauthRoleName": "amplify-churchdirmobile-dev-6d435-unauthRole",
+      "StackName": "amplify-churchdirmobile-dev-6d435",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:590184025842:stack/amplify-churchdirmobile-dev-6d435/e793fd50-f8a2-11ee-bc1c-0656cee43b77",
+      "AmplifyAppId": "d25q5cn2gq5f46"
+    }
+  }
+}
