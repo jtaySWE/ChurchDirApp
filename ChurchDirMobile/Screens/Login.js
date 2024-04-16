@@ -42,7 +42,7 @@ export default function Login({handleLogin}) {
       <Member isSignUp={true} handleSignUp={onRegistered} loggedUsername=""/>
       : <ScrollView>
         <Input name="username" control={control} placeholder="Username" defValue=""/>
-        <Input name="password" control={control} placeholder="Password" defValue=""/>
+        <Input name="password" control={control} placeholder="Password" defValue="" isPassword={true}/>
         <Button 
         title="Login"
         onPress={handleSubmit(onSubmit)}

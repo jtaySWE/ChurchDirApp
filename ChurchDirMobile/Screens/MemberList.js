@@ -43,17 +43,20 @@ export default function MemberList() {
     }).catch(error => {
       alert(error)
     });
-})
+}, [])
 
   return (
     <SectionList style={styles.listContainer}
         sections={list}
         renderItem={({item}) => (
-            <View style={styles.itemContainer}>
-              <Pressable onPress={onSelectMember(item.Username)}>
-                <Text>{item.GivenName + ' ' + item.Surname}</Text>
-              </Pressable>
-            </View>
+            <Pressable onPress={() => onSelectMember(item.Username)}
+            style={({pressed}) => [{
+              backgroundColor: pressed ? '#f0fbff' : 'white'
+            }]}>
+              <View style={styles.itemContainer}>
+                  <Text>{item.GivenName + ' ' + item.Surname}</Text>
+              </View>
+            </Pressable>
           )}
           renderSectionHeader={({section: {title, data}}) => (
             data.length > 0 && (<Text style={styles.headerSection}>{title}</Text>)
@@ -73,7 +76,8 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
     color: "black",
     fontWeight: 'bold',
-    fontSize: 12
+    fontSize: 12,
+    height: 20
   },
   listContainer: {
     backgroundColor: "white"

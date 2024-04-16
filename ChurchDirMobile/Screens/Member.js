@@ -100,8 +100,8 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
         <Input name="Phone" control={control} placeholder="Phone" defValue={phone}/>
         <Input name="Address" control={control} placeholder="Address" defValue={address}/>
         {isSignUp && <Input name="Username" control={control} placeholder="Username" defValue=""/>}
-        {isSignUp && <Input name="Password" control={control} placeholder="Password" defValue=""/>}
-        {isSignUp && <Input name="confirmPwd" control={control} placeholder="Confirm Password" defValue=""/>}
+        {isSignUp && <Input name="Password" control={control} placeholder="Password" defValue="" isPassword={true}/>}
+        {isSignUp && <Input name="confirmPwd" control={control} placeholder="Confirm Password" defValue="" isPassword={true}/>}
         <Button 
         title={isSignUp ? "Register" : "Save"}
         onPress={handleSubmit(onSubmit)}
