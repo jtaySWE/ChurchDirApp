@@ -3,6 +3,13 @@ import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 
+/**
+ * Shows details of a member if not for sign up, otherwise shows blank fields for registration
+ * @param isSignUp true if it is for sign up, false otherwise
+ * @param handleSignUp function to handle sign up
+ * @param loggedUsername the username of member to show if not for sign up
+ * @returns 
+ */
 export default function Member({isSignUp, handleSignUp, loggedUsername}) {
   const {control, handleSubmit, setValue} = useForm()
   const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"

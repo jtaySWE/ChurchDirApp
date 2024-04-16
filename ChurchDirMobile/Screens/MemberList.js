@@ -1,18 +1,25 @@
-import { SectionList , View, Text } from "react-native";
-import React from "react";
+import { SectionList, View, Text, StyleSheet, Pressable } from "react-native";
+import React, { useEffect } from "react";
+import { useNavigation } from '@react-navigation/native';
 
 export default function MemberList() {
 
-    // We get first letter of name from member
-    function getFirstLetterFrom(obj) {
-      const name = obj.GivenName + ' ' + obj.Surname
-      return name.slice(0, 1).toUpperCase();
-    }
+  const navigation = useNavigation()
+  const onSelectMember = (username) => {
+    navigation.navigate("Profile", {selectedUser: username})
+  }
 
-    const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
-    const getMembersUrl = apiUrl + "AllMembers"
-    const [list, setList] = React.useState([])
+  // We get first letter of name from member
+  function getFirstLetterFrom(obj) {
+    const name = obj.GivenName + ' ' + obj.Surname
+    return name.slice(0, 1).toUpperCase();
+  }
 
+  const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
+  const getMembersUrl = apiUrl + "AllMembers"
+  const [list, setList] = React.useState([])
+
+  useEffect( () => {
     fetch(getMembersUrl)
     .then(res => res.json())
     .then(result => {
@@ -36,18 +43,39 @@ export default function MemberList() {
     }).catch(error => {
       alert(error)
     });
+})
 
-    return (
-        <SectionList
-            sections={list}
-            renderItem={({item}) => (
-                <View>
-                  <Text>{item.GivenName + ' ' + item.Surname}</Text>
-                </View>
-              )}
-              renderSectionHeader={({section: {title, data}}) => (
-                data.length > 0 && (<Text>{title}</Text>)
-              )}
-        />
-    )
+  return (
+    <SectionList style={styles.listContainer}
+        sections={list}
+        renderItem={({item}) => (
+            <View style={styles.itemContainer}>
+              <Pressable onPress={onSelectMember(item.Username)}>
+                <Text>{item.GivenName + ' ' + item.Surname}</Text>
+              </Pressable>
+            </View>
+          )}
+          renderSectionHeader={({section: {title, data}}) => (
+            data.length > 0 && (<Text style={styles.headerSection}>{title}</Text>)
+          )}
+    />
+  )
 }
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    borderBottomWidth: 1,
+    height: 44,
+    padding: 8,
+    fontSize: 16
+  },
+  headerSection: {
+    backgroundColor: "lightgrey",
+    color: "black",
+    fontWeight: 'bold',
+    fontSize: 12
+  },
+  listContainer: {
+    backgroundColor: "white"
+  }
+});
