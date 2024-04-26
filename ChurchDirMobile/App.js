@@ -7,7 +7,7 @@ import MemberList from './Screens/MemberList';
 import React from 'react';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Amplify } from 'aws-amplify';
-import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth';
+import { getCurrentUser } from 'aws-amplify/auth';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 
 import awsExports from './src/aws-exports';
@@ -21,7 +21,6 @@ export default function App() {
 
   async function MainScreen() {
     const {signOut} = useAuthenticator()
-    const userInfo = await fetchUserAttributes()
     const currUser = await getCurrentUser() 
     setUser(currUser.username)
 

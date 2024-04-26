@@ -90,16 +90,6 @@ public class Function
                 };
             }
 
-            // Check that password is correct
-            if (member.Password != newMember["password"].GetValue<string>())
-            {
-                return new APIGatewayHttpApiV2ProxyResponse
-                {
-                    Body = "Incorrect password.",
-                    StatusCode = 400
-                };
-            }
-
             return new APIGatewayHttpApiV2ProxyResponse
             {
                 Body = JsonSerializer.Serialize(member),
@@ -124,30 +114,6 @@ public class Function
             {
                 Body = $"Member with username {member.Username} removed successfully",
                 StatusCode = 200
-            };
-        }
-        else if (request.RouteKey.Contains("PUT /ChangePwd") && request.Body != null)
-        {
-            JsonNode newMember = JsonNode.Parse(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember["username"].GetValue<string>());
-
-            // Make sure this member is already in the database
-            if (member == null)
-            {
-                return new APIGatewayHttpApiV2ProxyResponse
-                {
-                    Body = $"Member with username {newMember["username"].GetValue<string>()} does not exist.",
-                    StatusCode = 400
-                };
-            }
-
-            // Check that password is correct
-            member.Password = newMember["password"].GetValue<string>();
-
-            return new APIGatewayHttpApiV2ProxyResponse
-            {
-                Body = "Password changed successfully!",
-                StatusCode = 201
             };
         }
         else if (request.RouteKey.Contains("PUT /Member") && request.Body != null)

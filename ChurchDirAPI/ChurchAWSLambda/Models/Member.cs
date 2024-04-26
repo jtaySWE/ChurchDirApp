@@ -14,9 +14,6 @@ public class Member
     [DynamoDBProperty("username")]
     public string? Username { get; set; }
 
-    [DynamoDBProperty("password")]
-    public string? Password { get; set; }
-
     [DynamoDBProperty("givenName")]
     public string? GivenName { get; set; }
 
@@ -31,7 +28,4 @@ public class Member
 
     [DynamoDBProperty("address")]
     public string? Address { get; set; }
-
-    [DynamoDBProperty("isAdmin")]
-    public bool IsAdmin { get; set; }
 }
