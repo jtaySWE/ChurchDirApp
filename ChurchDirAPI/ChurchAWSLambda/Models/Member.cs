@@ -2,10 +2,16 @@
 
 namespace ChurchAWSLambda.Models;
 
-[DynamoDBTable("members")]
+[DynamoDBTable("ChurchMemberProd")]
 public class Member
 {
-    [DynamoDBHashKey("username")]
+    [DynamoDBHashKey("pk")]
+    public string? PK { get; set; }
+
+    [DynamoDBRangeKey("sk")]
+    public string? SK { get; set; }
+
+    [DynamoDBProperty("username")]
     public string? Username { get; set; }
 
     [DynamoDBProperty("password")]

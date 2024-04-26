@@ -57,14 +57,14 @@ public class Function
         } else if (request.RouteKey.Contains("POST /Member") && request.Body != null)
         {
             var newMember = JsonSerializer.Deserialize<Member>(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember.Username);
+            var member = await dbContext.LoadAsync<Member>(newMember.PK);
 
             // Make sure this member is not already in the database
             if (member != null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = $"The member with username {newMember.Username} already exists.",
+                    Body = $"The member with username {newMember.PK} already exists.",
                     StatusCode = 400
                 };
             }
@@ -153,14 +153,14 @@ public class Function
         else if (request.RouteKey.Contains("PUT /Member") && request.Body != null)
         {
             var currMember = JsonSerializer.Deserialize<Member>(request.Body);
-            var member = await dbContext.LoadAsync<Member>(currMember.Username);
+            var member = await dbContext.LoadAsync<Member>(currMember.PK);
 
             // Make sure this member is in the database
             if (member == null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = $"The member with username {currMember.Username} does not exists.",
+                    Body = $"The member with username {currMember.PK} does not exists.",
                     StatusCode = 400
                 };
             }

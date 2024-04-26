@@ -7,6 +7,7 @@ import MemberList from './Screens/MemberList';
 import React from 'react';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Amplify } from 'aws-amplify';
+import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 
 import awsExports from './src/aws-exports';
@@ -16,26 +17,19 @@ export default function App() {
 
   const Stack = createNativeStackNavigator()
   const Tab = createBottomTabNavigator()
-  const [isSignedIn, setSignIn] = React.useState(false)
   const [loggedUser, setUser] = React.useState("")
 
-  const loginMember = (user) => {
-    setUser(user)
-    setSignIn(true)
-  }
+  async function MainScreen() {
+    const {signOut} = useAuthenticator()
+    const userInfo = await fetchUserAttributes()
+    const currUser = await getCurrentUser() 
+    setUser(currUser.username)
 
-  const logoutMember = () => {
-    setSignIn(false)
-  }
-
-  function MainScreen() {
-    const {signOut, user} = useAuthenticator((context) => [context.user])
     return (
       <Tab.Navigator 
       initialRouteName='Home'
       >
-        <Tab.Screen name='Home' children={() => (<Member isSignUp={false} handleSignUp={null} 
-        loggedUsername={loggedUser}/>)}
+        <Tab.Screen name='Home' children={() => (<Member loggedUsername={loggedUser}/>)}
         options={
           {
             headerRight: () => (<SimpleLineIcons.Button name='logout' 
@@ -67,7 +61,7 @@ export default function App() {
 
 function MemberProfile({navigation, route}) {
   return (
-    <Member isSignUp={false} handleSignUp={null} loggedUsername={route.params.selectedUser}/>
+    <Member loggedUsername={route.params.selectedUser}/>
   )
 }
 

@@ -2,15 +2,14 @@ import { useForm } from 'react-hook-form';
 import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
+import { updateUserAttributes } from 'aws-amplify/auth';
 
 /**
- * Shows details of a member if not for sign up, otherwise shows blank fields for registration
- * @param isSignUp true if it is for sign up, false otherwise
- * @param handleSignUp function to handle sign up
- * @param loggedUsername the username of member to show if not for sign up
+ * Shows details of a member
+ * @param loggedUsername the username of member to show
  * @returns 
  */
-export default function Member({isSignUp, handleSignUp, loggedUsername}) {
+export default function Member({loggedUsername}) {
   const {control, handleSubmit, setValue} = useForm()
   const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
   const signUpUrl = apiUrl + "Member"
@@ -22,7 +21,6 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
   const [email, setEmail] = React.useState("")
   const [phone, setPhone] = React.useState("")
   const [address, setAddress] = React.useState("")
-  let passwordFromUser = ""
 
   // Used for placing in user details after just signing in
   useEffect(() => {
@@ -33,8 +31,7 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
     setValue("Address", address)
   }, [givenName, surname, email, phone, address])
 
-  // If not for signing up, load in details of logged in member
-  if (!isSignUp && loggedUsername) {
+  if (loggedUsername) {
     fetch(getUserUrl)
     .then(res => res.json())
     .then(result => {
@@ -43,52 +40,30 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
       setEmail(result.Email)
       setPhone(result.Phone)
       setAddress(result.Address)
-      passwordFromUser = result.Password
     })
   }
   
   const onSubmit = (data) => {
-    const confirmPwd = data["confirmPwd"]
-    delete data["confirmPwd"]
-    data["IsAdmin"] = true
-    
-    if (isSignUp) {
-      // Check if password matches
-      if (data["Password"] == confirmPwd) {
-        fetch(signUpUrl, 
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-
-          }).then(res => {
-            if (res.ok) {
-              handleSignUp()
-            }
-          })
-          .catch(error => {
-            alert(error)
-          })
-      } else {
-        alert("Make sure your confirmed password matches!")
+    data["Username"] = loggedUsername
+    const updateUserInfo = {
+      userAttributes: {
+        given_name: data.GivenName,
+        family_name: data.Surname,
+        phone_number: data.Phone,
+        address: data.Address
       }
-    } else {
-      // Filling in current username and password before updating member
-      data["Username"] = loggedUsername
-      data["Password"] = passwordFromUser
-      fetch(updateUrl, 
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        }).catch(error => {
-          alert(error)
-        })
     }
+    updateUserAttributes(updateUserInfo)
+    fetch(updateUrl, 
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }).catch(error => {
+        alert(error)
+      })
   }
 
   return (
@@ -99,15 +74,10 @@ export default function Member({isSignUp, handleSignUp, loggedUsername}) {
         <Input name="Email" control={control} placeholder="Email" defValue={email}/>
         <Input name="Phone" control={control} placeholder="Phone" defValue={phone}/>
         <Input name="Address" control={control} placeholder="Address" defValue={address}/>
-        {isSignUp && <Input name="Username" control={control} placeholder="Username" defValue=""/>}
-        {isSignUp && <Input name="Password" control={control} placeholder="Password" defValue="" isPassword={true}/>}
-        {isSignUp && <Input name="confirmPwd" control={control} placeholder="Confirm Password" defValue="" isPassword={true}/>}
         <Button 
-        title={isSignUp ? "Register" : "Save"}
+        title="Save"
         onPress={handleSubmit(onSubmit)}
         />
-        {isSignUp && <Button title="Cancel"
-        onPress={handleSignUp}/>}
         </ScrollView>
     </View>
   );
