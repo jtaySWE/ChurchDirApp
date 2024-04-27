@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
-import { updateUserAttributes } from 'aws-amplify/auth';
+//import { updateUserAttributes } from 'aws-amplify/auth';
 
 /**
  * Shows details of a member
@@ -45,7 +45,7 @@ export default function Member({loggedUsername}) {
   
   const onSubmit = (data) => {
     data["Username"] = loggedUsername
-    const updateUserInfo = {
+    /*const updateUserInfo = {
       userAttributes: {
         given_name: data.GivenName,
         family_name: data.Surname,
@@ -53,7 +53,7 @@ export default function Member({loggedUsername}) {
         address: data.Address
       }
     }
-    updateUserAttributes(updateUserInfo)
+    updateUserAttributes(updateUserInfo)*/
     fetch(updateUrl, 
       {
         method: "PUT",

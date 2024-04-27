@@ -9,15 +9,14 @@ beforeEach(() => {
    fetchMock.resetMocks()
 })
 
-test('Renders button for sign up', () => {
-   const render = renderer.create(<Member isSignUp={false}/>).root
+test('Renders button for saving user info', () => {
+   const render = renderer.create(<Member/>).root
    expect(render.findByType(Button).props.title).toBe('Save')
 })
 
 test('Fetches all members', async () => {
    const allMembers = [{
       Username: "testuser",
-      Password: "testpwd",
       GivenName: "alex",
       Surname: "tenz",
       Address: "45 wantirna",
@@ -25,7 +24,6 @@ test('Fetches all members', async () => {
       Email: "test@gmail.com"
    },{
       Username: "testuser2",
-      Password: "testpwd2",
       GivenName: "sam",
       Surname: "ben",
       Address: "45 geelong",
