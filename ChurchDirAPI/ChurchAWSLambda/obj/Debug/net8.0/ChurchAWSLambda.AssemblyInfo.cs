@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChurchAWSLambda")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0c183967d64a5da4b8297f0ebdf0aeb4f5f13c9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8cce9e36d7d84ebf9d3c883ef2032413c97d81bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChurchAWSLambda")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChurchAWSLambda")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

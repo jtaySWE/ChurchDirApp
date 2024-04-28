@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function MemberList() {
 
   const navigation = useNavigation()
-  const onSelectMember = (username) => {
-    navigation.navigate("Profile", {selectedUser: username})
+  const onSelectMember = (userID) => {
+    navigation.navigate("Profile", {selectedUser: userID})
   }
 
   // We get first letter of name from member
@@ -49,7 +49,7 @@ export default function MemberList() {
     <SectionList style={styles.listContainer}
         sections={list}
         renderItem={({item}) => (
-            <Pressable onPress={() => onSelectMember(item.Username)}
+            <Pressable onPress={() => onSelectMember(item.UserID)}
             style={({pressed}) => [{
               backgroundColor: pressed ? '#f0fbff' : 'white'
             }]}>

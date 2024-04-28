@@ -25,6 +25,11 @@ public class Function
     {
         AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         DynamoDBContext dbContext = new DynamoDBContext(client);
+        string userID = null;
+
+        if (request.PathParameters.ContainsKey("userID")) {
+            userID = request.PathParameters["userID"];
+        }
 
         if (request.RouteKey.Contains("GET /AllMembers"))
         {
@@ -35,16 +40,16 @@ public class Function
                 StatusCode = 200
             };
 
-        } else if (request.RouteKey.Contains("GET /Member") && request.PathParameters["username"] != null)
+        } else if (request.RouteKey.Contains("GET /Member") && userID != null)
         {
-            var member = await dbContext.LoadAsync<Member>(request.PathParameters["username"]);
+            var member = await dbContext.LoadAsync<Member>(userID, userID);
 
             // Make sure this member is already in the database
             if (member == null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = $"The member with username {request.PathParameters["username"]} does not exists.",
+                    Body = $"The member with user ID {userID} does not exists.",
                     StatusCode = 400
                 };
             }
@@ -57,14 +62,14 @@ public class Function
         } else if (request.RouteKey.Contains("POST /Member") && request.Body != null)
         {
             var newMember = JsonSerializer.Deserialize<Member>(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember.PK);
+            var member = await dbContext.LoadAsync<Member>(newMember.PK, newMember.SK);
 
             // Make sure this member is not already in the database
             if (member != null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = $"The member with username {newMember.PK} already exists.",
+                    Body = $"The member with user ID {newMember.PK} already exists.",
                     StatusCode = 400
                 };
             }
@@ -78,14 +83,14 @@ public class Function
         } else if (request.RouteKey.Contains("POST /SignIn") && request.Body != null)
         {
             JsonNode newMember = JsonNode.Parse(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember["username"].GetValue<string>());
+            var member = await dbContext.LoadAsync<Member>(newMember["userID"].GetValue<string>());
 
             // Make sure this member is already in the database
             if (member == null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = "Incorrect username.",
+                    Body = "Incorrect user ID.",
                     StatusCode = 400
                 };
             }
@@ -95,16 +100,16 @@ public class Function
                 Body = JsonSerializer.Serialize(member),
                 StatusCode = 201
             };
-        } else if (request.RouteKey.Contains("DELETE /Member") && request.PathParameters["username"] != null)
+        } else if (request.RouteKey.Contains("DELETE /Member") && userID != null)
         {
-            var member = await dbContext.LoadAsync<Member>(request.PathParameters["username"]);
+            var member = await dbContext.LoadAsync<Member>(userID);
 
             // Make sure this member is already in the database
             if (member == null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = $"The member with username {request.PathParameters["username"]} does not exists.",
+                    Body = $"The member with user ID {userID} does not exists.",
                     StatusCode = 400
                 };
             }
@@ -112,21 +117,21 @@ public class Function
             await dbContext.DeleteAsync(member);
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                Body = $"Member with username {member.Username} removed successfully",
+                Body = $"Member with user ID {member.UserID} removed successfully",
                 StatusCode = 200
             };
         }
         else if (request.RouteKey.Contains("PUT /Member") && request.Body != null)
         {
             var currMember = JsonSerializer.Deserialize<Member>(request.Body);
-            var member = await dbContext.LoadAsync<Member>(currMember.PK);
+            var member = await dbContext.LoadAsync<Member>(currMember.PK, currMember.SK);
 
             // Make sure this member is in the database
             if (member == null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Body = $"The member with username {currMember.PK} does not exists.",
+                    Body = $"The member with user ID {currMember.PK} does not exists.",
                     StatusCode = 400
                 };
             }
@@ -144,5 +149,34 @@ public class Function
             Body = "Bad Request",
             StatusCode = 400
         };
+    }
+
+    public async Task<JsonElement> SignUpHandler(JsonElement input, ILambdaContext context)
+    {
+        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+        DynamoDBContext dbContext = new DynamoDBContext(client);
+        var request = input.GetProperty("request");
+        var userAttributes = request.GetProperty("userAttributes");
+        string email = userAttributes.GetProperty("email").GetString();
+        string phone = userAttributes.GetProperty("phone").GetString();
+        string givenName = userAttributes.GetProperty("given_name").GetString();
+        string surname = userAttributes.GetProperty("family_name").GetString();
+        string address = userAttributes.GetProperty("address").GetString();
+        string userID = userAttributes.GetProperty("sub").GetString();
+
+        var newMember = new Member()
+        {
+            PK = userID,
+            SK = userID,
+            UserID = userID,
+            GivenName = givenName,
+            Surname = surname,
+            Email = email,
+            Phone = phone,
+            Address = address
+        };
+        await dbContext.SaveAsync(newMember);
+
+        return input;
     }
 }

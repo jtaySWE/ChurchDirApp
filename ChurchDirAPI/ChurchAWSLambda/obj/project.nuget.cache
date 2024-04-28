@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "78TTNQXV9wpn6YtlpjwTYgs9Fw9z5DhBEEw2Nl5bmSngrYtT+xqYowCBY61vuL54Jzz0hHVnTn6Wi3I/riK1kg==",
+  "dgSpecHash": "pp5yGhRTpjVYIa797XcYS/Es/3mbxx8z39Hs5bYM/XPjHRxnDHdZXO3TGBgSH+EmyUpyGUp5Ic4OMKMhl4CLGg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\ChurchAWSLambda\\ChurchAWSLambda.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\jason\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.4.1\\amazon.lambda.serialization.systemtextjson.2.4.1.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\awssdk.core\\3.7.303.9\\awssdk.core.3.7.303.9.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\awssdk.dynamodbv2\\3.7.302.10\\awssdk.dynamodbv2.3.7.302.10.nupkg.sha512",
+    "C:\\Users\\jason\\.nuget\\packages\\microsoft.netcore.app.runtime.linux-x64\\8.0.2\\microsoft.netcore.app.runtime.linux-x64.8.0.2.nupkg.sha512",
+    "C:\\Users\\jason\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.linux-x64\\8.0.2\\microsoft.aspnetcore.app.runtime.linux-x64.8.0.2.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.2\\microsoft.netcore.app.crossgen2.win-x64.8.0.2.nupkg.sha512"
   ],
   "logs": []

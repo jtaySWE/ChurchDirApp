@@ -16,14 +16,14 @@ test('Renders button for saving user info', () => {
 
 test('Fetches all members', async () => {
    const allMembers = [{
-      Username: "testuser",
+      UserID: "testuser",
       GivenName: "alex",
       Surname: "tenz",
       Address: "45 wantirna",
       Phone: "0423333678",
       Email: "test@gmail.com"
    },{
-      Username: "testuser2",
+      UserID: "testuser2",
       GivenName: "sam",
       Surname: "ben",
       Address: "45 geelong",

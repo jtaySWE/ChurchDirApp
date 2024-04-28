@@ -11,8 +11,8 @@ public class Member
     [DynamoDBRangeKey("sk")]
     public string? SK { get; set; }
 
-    [DynamoDBProperty("username")]
-    public string? Username { get; set; }
+    [DynamoDBProperty("userID")]
+    public string? UserID { get; set; }
 
     [DynamoDBProperty("givenName")]
     public string? GivenName { get; set; }

@@ -22,13 +22,13 @@ export default function App() {
   async function MainScreen() {
     const {signOut} = useAuthenticator()
     const currUser = await getCurrentUser() 
-    setUser(currUser.username)
+    setUser(currUser.userId)
 
     return (
       <Tab.Navigator 
       initialRouteName='Home'
       >
-        <Tab.Screen name='Home' children={() => (<Member loggedUsername={loggedUser}/>)}
+        <Tab.Screen name='Home' children={() => (<Member userID={loggedUser}/>)}
         options={
           {
             headerRight: () => (<SimpleLineIcons.Button name='logout' 
@@ -60,7 +60,7 @@ export default function App() {
 
 function MemberProfile({navigation, route}) {
   return (
-    <Member loggedUsername={route.params.selectedUser}/>
+    <Member userID={route.params.selectedUser}/>
   )
 }
 

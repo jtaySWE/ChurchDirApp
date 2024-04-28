@@ -2,19 +2,17 @@ import { useForm } from 'react-hook-form';
 import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
-//import { updateUserAttributes } from 'aws-amplify/auth';
 
 /**
  * Shows details of a member
- * @param loggedUsername the username of member to show
+ * @param userID the ID of member to show
  * @returns 
  */
-export default function Member({loggedUsername}) {
+export default function Member({userID}) {
   const {control, handleSubmit, setValue} = useForm()
   const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
-  const signUpUrl = apiUrl + "Member"
   const updateUrl = apiUrl + "Member"
-  const getUserUrl = apiUrl + "Member/" + loggedUsername
+  const getUserUrl = apiUrl + "Member/" + userID
 
   const [givenName, setGivenName] = React.useState("")
   const [surname, setSurname] = React.useState("")
@@ -31,7 +29,7 @@ export default function Member({loggedUsername}) {
     setValue("Address", address)
   }, [givenName, surname, email, phone, address])
 
-  if (loggedUsername) {
+  if (userID) {
     fetch(getUserUrl)
     .then(res => res.json())
     .then(result => {
@@ -44,16 +42,7 @@ export default function Member({loggedUsername}) {
   }
   
   const onSubmit = (data) => {
-    data["Username"] = loggedUsername
-    /*const updateUserInfo = {
-      userAttributes: {
-        given_name: data.GivenName,
-        family_name: data.Surname,
-        phone_number: data.Phone,
-        address: data.Address
-      }
-    }
-    updateUserAttributes(updateUserInfo)*/
+    data["UserID"] = userID
     fetch(updateUrl, 
       {
         method: "PUT",
