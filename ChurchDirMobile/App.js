@@ -1,4 +1,4 @@
-import { Button, Keyboard, SafeAreaView, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Keyboard, SafeAreaView, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -42,7 +42,22 @@ export default function App() {
 
   return (
     <Authenticator.Provider>
-      <Authenticator>
+      <Authenticator
+      components={{
+          SignUp: ({ fields, ...props }) => (
+            <Authenticator.SignUp
+              {...props}
+              fields={[...fields,
+                {
+                  name: 'address',
+                  label: 'Address',
+                  type: 'default',
+                  placeholder: 'Enter your address',
+                }
+              ]}
+            />
+          ),
+        }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <SafeAreaView style={styles.safeContainer}>
             <NavigationContainer>

@@ -158,7 +158,7 @@ public class Function
         var request = input.GetProperty("request");
         var userAttributes = request.GetProperty("userAttributes");
         string email = userAttributes.GetProperty("email").GetString();
-        string phone = userAttributes.GetProperty("phone").GetString();
+        string phone = userAttributes.GetProperty("phone_number").GetString();
         string givenName = userAttributes.GetProperty("given_name").GetString();
         string surname = userAttributes.GetProperty("family_name").GetString();
         string address = userAttributes.GetProperty("address").GetString();
