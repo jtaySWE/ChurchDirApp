@@ -7,35 +7,30 @@ import MemberList from './Screens/MemberList';
 import React from 'react';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Amplify } from 'aws-amplify';
-import { getCurrentUser } from 'aws-amplify/auth';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 
 import awsExports from './src/aws-exports';
 Amplify.configure(awsExports);
 
 export default function App() {
-
   const Stack = createNativeStackNavigator()
-  const Tab = createBottomTabNavigator()
-  const [loggedUser, setUser] = React.useState("")
-
-  async function MainScreen() {
-    const {signOut} = useAuthenticator()
-    const currUser = await getCurrentUser() 
-    setUser(currUser.userId)
+  
+  function MainScreen() {
+    const Tab = createBottomTabNavigator()
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
 
     return (
       <Tab.Navigator 
       initialRouteName='Home'
       >
-        <Tab.Screen name='Home' children={() => (<Member userID={loggedUser}/>)}
+        <Tab.Screen name='Home' component={() => (<Member userID={user.userId}/>)}
         options={
           {
             headerRight: () => (<SimpleLineIcons.Button name='logout' 
               onPress={signOut} color="black" backgroundColor="white"/>)
           }
         }/>
-        <Tab.Screen name='Members' children={() => (<MemberList/>)}/>
+        <Tab.Screen name='Members' component={() => (<MemberList/>)}/>
       </Tab.Navigator>
     )
   }
@@ -52,11 +47,11 @@ export default function App() {
                   name: 'address',
                   label: 'Address',
                   type: 'default',
-                  placeholder: 'Enter your address',
+                  placeholder: 'Enter your address'
                 }
               ]}
             />
-          ),
+          )
         }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <SafeAreaView style={styles.safeContainer}>

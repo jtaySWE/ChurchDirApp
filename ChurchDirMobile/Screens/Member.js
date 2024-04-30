@@ -39,6 +39,7 @@ export default function Member({userID}) {
       setPhone(result.Phone)
       setAddress(result.Address)
     })
+    .catch(error => {alert(error)})
   }
   
   const onSubmit = (data) => {
