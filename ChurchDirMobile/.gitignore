@@ -9,6 +9,9 @@ coverage/
 dist/
 web-build/
 
+# ios
+ios/Pods
+
 # Native
 *.orig.*
 *.jks

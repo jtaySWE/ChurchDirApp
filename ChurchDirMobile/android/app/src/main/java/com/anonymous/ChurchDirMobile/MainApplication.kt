@@ -1,4 +1,4 @@
-package com.churchdirmobile
+package com.anonymous.ChurchDirMobile
 
 import android.app.Application
 import com.facebook.react.PackageList
