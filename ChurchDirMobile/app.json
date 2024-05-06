@@ -1,4 +1,6 @@
 {
+  "name": "ChurchDirMobile", 
+  "displayName": "ChurchDirMobile",
   "expo": {
     "name": "ChurchDirMobile",
     "slug": "ChurchDirMobile",
