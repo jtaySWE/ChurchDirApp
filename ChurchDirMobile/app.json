@@ -1,4 +1,6 @@
 {
+  "name": "ChurchDirMobile",
+  "displayName": "ChurchDirMobile",
   "expo": {
     "name": "ChurchDirMobile",
     "slug": "ChurchDirMobile",
@@ -15,13 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.ChurchDirMobile"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.ChurchDirMobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
