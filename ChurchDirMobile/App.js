@@ -9,8 +9,8 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 
-import awsExports from './src/aws-exports';
-Amplify.configure(awsExports);
+import amplifyconfig from './src/amplifyconfiguration.json';
+Amplify.configure(amplifyconfig);
 
 export default function App() {
   const Stack = createNativeStackNavigator()

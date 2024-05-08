@@ -201,24 +201,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/mediateam/.nuget/packages/": {}
+    "C:\\Users\\jason\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/mediateam/Documents/Code/ChurchDirApp/ChurchDirAPI/ChurchAWSLambda/ChurchAWSLambda.csproj",
+      "projectUniqueName": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\ChurchAWSLambda\\ChurchAWSLambda.csproj",
       "projectName": "ChurchAWSLambda",
-      "projectPath": "/Users/mediateam/Documents/Code/ChurchDirApp/ChurchDirAPI/ChurchAWSLambda/ChurchAWSLambda.csproj",
-      "packagesPath": "/Users/mediateam/.nuget/packages/",
-      "outputPath": "/Users/mediateam/Documents/Code/ChurchDirApp/ChurchDirAPI/ChurchAWSLambda/obj/",
+      "projectPath": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\ChurchAWSLambda\\ChurchAWSLambda.csproj",
+      "packagesPath": "C:\\Users\\jason\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jason\\OneDrive\\Documents\\GitHub\\ChurchDirApp\\ChurchDirAPI\\ChurchAWSLambda\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/mediateam/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\jason\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -231,6 +233,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -267,8 +274,8 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.NETCore.App.Crossgen2.osx-arm64",
-            "version": "[8.0.4, 8.0.4]"
+            "name": "Microsoft.NETCore.App.Crossgen2.win-x64",
+            "version": "[8.0.2, 8.0.2]"
           }
         ],
         "frameworkReferences": {
@@ -276,7 +283,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,6 +2,7 @@ import { Button } from "react-native"
 import Member from "../Screens/Member"
 import renderer from "react-test-renderer"
 import fetchMock from "jest-fetch-mock"
+import { render, screen } from "@testing-library/react-native"
 
 fetchMock.enableMocks()
 
@@ -10,8 +11,8 @@ beforeEach(() => {
 })
 
 test('Renders button for saving user info', () => {
-   const render = renderer.create(<Member/>).root
-   expect(render.findByType(Button).props.title).toBe('Save')
+   render(<Member/>)
+   expect(screen.getByRole('button')).toBeOnTheScreen()
 })
 
 test('Fetches all members', async () => {

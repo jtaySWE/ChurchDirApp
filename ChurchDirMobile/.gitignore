@@ -12,6 +12,14 @@ web-build/
 # ios
 ios/Pods
 
+# Android/IntelliJ
+#
+android/
+.idea
+.gradle
+local.properties
+*.iml
+
 # Native
 *.orig.*
 *.jks
