@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Member from './Screens/Member';
 import MemberList from './Screens/MemberList';
 import React from 'react';
-import { SimpleLineIcons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 
@@ -26,7 +26,7 @@ export default function App() {
         <Tab.Screen name='Home' component={() => (<Member userID={user.userId}/>)}
         options={
           {
-            headerRight: () => (<SimpleLineIcons.Button name='logout' 
+            headerRight: () => (<Icon.Button name='logout' 
               onPress={signOut} color="black" backgroundColor="white"/>)
           }
         }/>
