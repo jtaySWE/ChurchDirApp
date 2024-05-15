@@ -27,12 +27,18 @@ public class Function
         DynamoDBContext dbContext = new DynamoDBContext(client);
         string userID = null;
 
-        if (request.PathParameters.ContainsKey("userID")) {
-            userID = request.PathParameters["userID"];
+        // Get user ID if in path parameter
+        if (request.PathParameters != null)
+        {
+            if (request.PathParameters.ContainsKey("userID"))
+            {
+                userID = request.PathParameters["userID"];
+            }
         }
 
         if (request.RouteKey.Contains("GET /AllMembers"))
         {
+            // Get all members
             var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
             return new APIGatewayHttpApiV2ProxyResponse
             {
@@ -64,7 +70,7 @@ public class Function
             var newMember = JsonSerializer.Deserialize<Member>(request.Body);
             var member = await dbContext.LoadAsync<Member>(newMember.PK, newMember.SK);
 
-            // Make sure this member is not already in the database
+            // Make sure this member is not already in the database, so that we can add new member
             if (member != null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
@@ -126,7 +132,7 @@ public class Function
             var currMember = JsonSerializer.Deserialize<Member>(request.Body);
             var member = await dbContext.LoadAsync<Member>(currMember.PK, currMember.SK);
 
-            // Make sure this member is in the database
+            // Make sure this member is in the database, to modify his/her data
             if (member == null)
             {
                 return new APIGatewayHttpApiV2ProxyResponse
