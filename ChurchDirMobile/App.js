@@ -70,7 +70,7 @@ export default function App() {
 
 function MemberProfile({navigation, route}) {
   return (
-    <Member userID={route.params.selectedUser}/>
+    <Member userID={route.params.selectedUser} readOnly={true}/>
   )
 }
 

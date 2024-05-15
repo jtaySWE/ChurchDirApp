@@ -2,7 +2,7 @@ import { StyleSheet, TextInput } from 'react-native';
 import { useController } from 'react-hook-form';
 
 
-export default function Input({name, control, placeholder, defValue, isPassword = false}) {
+export default function Input({name, control, placeholder, defValue, isPassword = false, isReadOnly = false}) {
     const {field} = useController({
       control,
       defaultValue: defValue,
@@ -15,6 +15,7 @@ export default function Input({name, control, placeholder, defValue, isPassword 
         placeholder={placeholder} 
         style={styles.input}
         secureTextEntry={isPassword}
+        readOnly={isReadOnly}
         />
       )
   }

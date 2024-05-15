@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
  * @param userID the ID of member to show
  * @returns 
  */
-export default function Member({userID}) {
+export default function Member({userID, readOnly = false}) {
   const {control, handleSubmit, setValue} = useForm()
   const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
   const updateUrl = apiUrl + "Member"
@@ -43,12 +43,19 @@ export default function Member({userID}) {
   }
   
   const onSubmit = (data) => {
+
+    // Put in user's ID before sending PUT request
     data["UserID"] = userID
+    data["PK"] = userID
+    data["SK"] = userID
+
     fetch(updateUrl, 
       {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Headers": "content-type",
+          "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(data)
       }).catch(error => {
@@ -59,15 +66,15 @@ export default function Member({userID}) {
   return (
     <View style={styles.container}>
         <ScrollView>
-        <Input name="GivenName" control={control} placeholder="Given name" defValue={givenName}/>
-        <Input name="Surname" control={control} placeholder="Surname" defValue={surname}/>
-        <Input name="Email" control={control} placeholder="Email" defValue={email}/>
-        <Input name="Phone" control={control} placeholder="Phone" defValue={phone}/>
-        <Input name="Address" control={control} placeholder="Address" defValue={address}/>
-        <Button 
+        <Input name="GivenName" control={control} placeholder="Given name" defValue={givenName} isReadOnly={readOnly}/>
+        <Input name="Surname" control={control} placeholder="Surname" defValue={surname} isReadOnly={readOnly}/>
+        <Input name="Email" control={control} placeholder="Email" defValue={email} isReadOnly={readOnly}/>
+        <Input name="Phone" control={control} placeholder="Phone" defValue={phone} isReadOnly={readOnly}/>
+        <Input name="Address" control={control} placeholder="Address" defValue={address} isReadOnly={readOnly}/>
+        { !readOnly && <Button 
         title="Save"
         onPress={handleSubmit(onSubmit)}
-        />
+        />}
         </ScrollView>
     </View>
   );
