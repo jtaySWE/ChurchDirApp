@@ -142,11 +142,19 @@ public class Function
                 };
             }
             await dbContext.SaveAsync(currMember);
+            Dictionary<string, string> respHeader = new Dictionary<string, string>
+            {
+                { "Access-Control-Allow-Origin", "*" },
+                { "Content-Type", "application/json" },
+                {"Access-Control-Allow-Methods", "PUT" },
+                {"Access-Control-Allow-Headers", "Content-Type" }
+            };
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
+                //Headers = respHeader,
                 Body = JsonSerializer.Serialize(currMember),
-                StatusCode = 201
+                StatusCode = 200
             };
         }
 

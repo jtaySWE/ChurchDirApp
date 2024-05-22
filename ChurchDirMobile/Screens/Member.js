@@ -52,11 +52,6 @@ export default function Member({userID, readOnly = false}) {
     fetch(updateUrl, 
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Headers": "content-type",
-          "Access-Control-Allow-Origin": "*"
-        },
         body: JSON.stringify(data)
       }).catch(error => {
         alert(error)
