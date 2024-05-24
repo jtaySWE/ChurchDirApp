@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
+import { updateUserAttributes } from 'aws-amplify/auth';
 
 /**
  * Shows details of a member
@@ -53,7 +54,12 @@ export default function Member({userID, readOnly = false}) {
       {
         method: "PUT",
         body: JSON.stringify(data)
-      }).catch(error => {
+      }).then(resp => {
+        if (resp.ok) {
+          updateUserAttributes({userAttributes: { email: data["Email"]}})
+        }
+      })
+      .catch(error => {
         alert(error)
       })
   }

@@ -22,10 +22,24 @@ export default function App() {
     return (
       <Tab.Navigator 
       initialRouteName='Home'
-      screenOptions={{
+      screenOptions={({route}) => ({
         headerRight: () => (<Icon.Button name='logout' 
-        onPress={signOut} color="black" backgroundColor="white"/>)
-      }}
+        onPress={signOut} color="black" backgroundColor="white"/>),
+        tabBarIcon: ({ color, size }) => {
+          const icons = {
+            Home: 'home',
+            Members: 'people',
+          };
+    
+          return (
+            <Icon
+              name={icons[route.name]}
+              color={color}
+              size={size}
+            />
+          );
+        }
+      })}
       >
         <Tab.Screen name='Home' component={() => (<Member userID={user.userId}/>)}/>
         <Tab.Screen name='Members' component={() => (<MemberList/>)}/>
