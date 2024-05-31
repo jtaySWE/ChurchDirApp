@@ -1,6 +1,8 @@
 import { SectionList, View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
+import { apiUrl } from "../config.js";
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 export default function MemberList() {
 
@@ -15,12 +17,14 @@ export default function MemberList() {
     return name.slice(0, 1).toUpperCase();
   }
 
-  const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
   const getMembersUrl = apiUrl + "AllMembers"
   const [list, setList] = React.useState([])
 
   useEffect( () => {
-    fetch(getMembersUrl)
+    const session = fetchAuthSession()
+    fetch(getMembersUrl, {
+      headers: new Headers([["Authorization", session.tokens.accessToken]])
+    })
     .then(res => res.json())
     .then(result => {
       result.sort((a, b) => {
@@ -41,7 +45,7 @@ export default function MemberList() {
             return list;
         }, []))
     }).catch(error => {
-      alert(error)
+      console.error(error)
     });
 }, [])
 

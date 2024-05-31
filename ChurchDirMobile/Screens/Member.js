@@ -3,6 +3,8 @@ import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { updateUserAttributes } from 'aws-amplify/auth';
+import { apiUrl } from "../config.js";
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 /**
  * Shows details of a member
@@ -11,7 +13,6 @@ import { updateUserAttributes } from 'aws-amplify/auth';
  */
 export default function Member({userID, readOnly = false}) {
   const {control, handleSubmit, setValue} = useForm()
-  const apiUrl = "https://3o3fpw8jb6.execute-api.ap-southeast-2.amazonaws.com/"
   const updateUrl = apiUrl + "Member"
   const getUserUrl = apiUrl + "Member/" + userID
 
@@ -31,8 +32,13 @@ export default function Member({userID, readOnly = false}) {
   }, [givenName, surname, email, phone, address])
 
   if (userID) {
-    fetch(getUserUrl)
-    .then(res => res.json())
+    fetchAuthSession().
+    then(resp => 
+      fetch(getUserUrl, 
+        {
+          headers: new Headers([["Authorization", resp.tokens.accessToken]])
+        })
+    ).then(res => res.json())
     .then(result => {
       setGivenName(result.GivenName)
       setSurname(result.Surname)
@@ -40,7 +46,7 @@ export default function Member({userID, readOnly = false}) {
       setPhone(result.Phone)
       setAddress(result.Address)
     })
-    .catch(error => {alert(error)})
+    .catch(error => {console.error(error)})
   }
   
   const onSubmit = (data) => {
@@ -50,17 +56,20 @@ export default function Member({userID, readOnly = false}) {
     data["PK"] = userID
     data["SK"] = userID
 
-    fetch(updateUrl, 
+    fetchAuthSession().
+    then(resp => fetch(updateUrl, 
       {
         method: "PUT",
-        body: JSON.stringify(data)
-      }).then(resp => {
+        body: JSON.stringify(data),
+        headers: new Headers([["Authorization", resp.tokens.accessToken]])
+      }))
+      .then(resp => {
         if (resp.ok) {
           updateUserAttributes({userAttributes: { email: data["Email"]}})
         }
       })
       .catch(error => {
-        alert(error)
+        console.error(error)
       })
   }
 
