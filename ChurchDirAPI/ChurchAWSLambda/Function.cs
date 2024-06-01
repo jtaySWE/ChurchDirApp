@@ -42,6 +42,7 @@ public class Function
             var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
             return new APIGatewayHttpApiV2ProxyResponse
             {
+                Headers = request.Headers,
                 Body = JsonSerializer.Serialize(members),
                 StatusCode = 200
             };
@@ -55,6 +56,7 @@ public class Function
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
+                    Headers = request.Headers,
                     Body = $"The member with user ID {userID} does not exists.",
                     StatusCode = 400
                 };
@@ -62,6 +64,7 @@ public class Function
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
+                Headers = request.Headers,
                 Body = JsonSerializer.Serialize(member),
                 StatusCode = 200
             };
@@ -142,17 +145,10 @@ public class Function
                 };
             }
             await dbContext.SaveAsync(currMember);
-            Dictionary<string, string> respHeader = new Dictionary<string, string>
-            {
-                { "Access-Control-Allow-Origin", "*" },
-                { "Content-Type", "application/json" },
-                {"Access-Control-Allow-Methods", "PUT" },
-                {"Access-Control-Allow-Headers", "Content-Type" }
-            };
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                //Headers = respHeader,
+                Headers = request.Headers,
                 Body = JsonSerializer.Serialize(currMember),
                 StatusCode = 200
             };

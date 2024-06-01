@@ -3,7 +3,7 @@ import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { updateUserAttributes } from 'aws-amplify/auth';
-import { apiUrl } from "../config.js";
+import { apiUrl, originUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 /**
@@ -36,7 +36,13 @@ export default function Member({userID, readOnly = false}) {
     then(resp => 
       fetch(getUserUrl, 
         {
-          headers: new Headers([["Authorization", resp.tokens.accessToken]])
+          method: "GET",
+          headers: new Headers([
+            ["Authorization", resp.tokens.accessToken],
+            ["Access-Control-Allow-Origin", originUrl],
+            ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
+            ["Access-Control-Allow-Headers", "Authorization"]
+        ])
         })
     ).then(res => res.json())
     .then(result => {
@@ -61,7 +67,12 @@ export default function Member({userID, readOnly = false}) {
       {
         method: "PUT",
         body: JSON.stringify(data),
-        headers: new Headers([["Authorization", resp.tokens.accessToken]])
+        headers: new Headers([
+          ["Authorization", resp.tokens.accessToken],
+          ["Access-Control-Allow-Origin", originUrl],
+          ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
+          ["Access-Control-Allow-Headers", "Authorization"]
+      ])
       }))
       .then(resp => {
         if (resp.ok) {
@@ -78,7 +89,7 @@ export default function Member({userID, readOnly = false}) {
         <ScrollView>
         <Input name="GivenName" control={control} placeholder="Given name" defValue={givenName} isReadOnly={readOnly}/>
         <Input name="Surname" control={control} placeholder="Surname" defValue={surname} isReadOnly={readOnly}/>
-        <Input name="Email" control={control} placeholder="Email" defValue={email} isReadOnly={readOnly}/>
+        <Input name="Email" control={control} placeholder="Email" defValue={email} isReadOnly={true}/>
         <Input name="Phone" control={control} placeholder="Phone" defValue={phone} isReadOnly={readOnly}/>
         <Input name="Address" control={control} placeholder="Address" defValue={address} isReadOnly={readOnly}/>
         { !readOnly && <Button 

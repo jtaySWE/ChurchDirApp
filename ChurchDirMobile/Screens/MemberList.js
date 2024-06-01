@@ -1,7 +1,7 @@
 import { SectionList, View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
-import { apiUrl } from "../config.js";
+import { apiUrl, originUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 export default function MemberList() {
@@ -21,10 +21,16 @@ export default function MemberList() {
   const [list, setList] = React.useState([])
 
   useEffect( () => {
-    const session = fetchAuthSession()
-    fetch(getMembersUrl, {
-      headers: new Headers([["Authorization", session.tokens.accessToken]])
-    })
+    fetchAuthSession().
+    then(session => fetch(getMembersUrl, {
+      method: "GET",
+      headers: new Headers([
+        ["Authorization", session.tokens.accessToken],
+        ["Access-Control-Allow-Origin", originUrl],
+        ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
+        ["Access-Control-Allow-Headers", "Authorization"]
+    ])
+    }))
     .then(res => res.json())
     .then(result => {
       result.sort((a, b) => {
