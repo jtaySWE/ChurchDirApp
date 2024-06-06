@@ -41,8 +41,8 @@ export default function App() {
         }
       })}
       >
-        <Tab.Screen name='Home' component={() => (<Member userID={user.userId}/>)}/>
-        <Tab.Screen name='Members' component={() => (<MemberList/>)}/>
+        <Tab.Screen name='Home' children={() => (<Member userID={user.userId}/>)}/>
+        <Tab.Screen name='Members' children={() => (<MemberList/>)}/>
       </Tab.Navigator>
     )
   }

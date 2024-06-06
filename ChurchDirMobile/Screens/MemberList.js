@@ -25,31 +25,33 @@ export default function MemberList() {
     then(session => fetch(getMembersUrl, {
       method: "GET",
       headers: new Headers([
-        ["Authorization", session.tokens.accessToken],
+        ["Authorization", session.tokens.idToken]/*,
         ["Access-Control-Allow-Origin", originUrl],
         ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
-        ["Access-Control-Allow-Headers", "Authorization"]
+        ["Access-Control-Allow-Headers", "Authorization"]*/
     ])
     }))
     .then(res => res.json())
     .then(result => {
-      result.sort((a, b) => {
-        return (a.GivenName + ' ' + a.Surname).toLowerCase()
-        .localeCompare((b.GivenName + ' ' + b.Surname).toLowerCase())
-      })
+      if (result) {
+        result.sort((a, b) => {
+          return (a.GivenName + ' ' + a.Surname).toLowerCase()
+          .localeCompare((b.GivenName + ' ' + b.Surname).toLowerCase())
+        })
 
-      // Put list of all members into sections by name
-      setList(result
-        .reduce(function (list, dataObj, index) {
-            let listItem = list.find((item) => item.title && item.title === getFirstLetterFrom(dataObj));
-            if (!listItem) {
-              list.push({"title": getFirstLetterFrom(dataObj), "data": [dataObj]})
-            } else {
-              listItem.data.push(dataObj)
-            }
+        // Put list of all members into sections by name
+        setList(result
+          .reduce(function (list, dataObj, index) {
+              let listItem = list.find((item) => item.title && item.title === getFirstLetterFrom(dataObj));
+              if (!listItem) {
+                list.push({"title": getFirstLetterFrom(dataObj), "data": [dataObj]})
+              } else {
+                listItem.data.push(dataObj)
+              }
 
-            return list;
-        }, []))
+              return list;
+          }, []))
+      }
     }).catch(error => {
       console.error(error)
     });

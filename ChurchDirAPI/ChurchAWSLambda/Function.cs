@@ -14,7 +14,7 @@ namespace ChurchAWSLambda;
 
 public class Function
 {
-    
+
     /// <summary>
     /// A simple function that takes a string and does a ToUpper
     /// </summary>
@@ -26,6 +26,10 @@ public class Function
         AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         DynamoDBContext dbContext = new DynamoDBContext(client);
         string userID = null;
+        /*Dictionary<string, string> respHeader = new Dictionary<string, string>()
+        {
+            { "Access-Control-Allow-Origin", "*"}
+        };*/
 
         // Get user ID if in path parameter
         if (request.PathParameters != null)
@@ -42,7 +46,7 @@ public class Function
             var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                Headers = request.Headers,
+                //Headers = respHeader,
                 Body = JsonSerializer.Serialize(members),
                 StatusCode = 200
             };
@@ -56,7 +60,7 @@ public class Function
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    Headers = request.Headers,
+                    //Headers = respHeader,
                     Body = $"The member with user ID {userID} does not exists.",
                     StatusCode = 400
                 };
@@ -64,7 +68,7 @@ public class Function
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                Headers = request.Headers,
+                //Headers = respHeader,
                 Body = JsonSerializer.Serialize(member),
                 StatusCode = 200
             };
@@ -126,6 +130,7 @@ public class Function
             await dbContext.DeleteAsync(member);
             return new APIGatewayHttpApiV2ProxyResponse
             {
+                //Headers = respHeader,
                 Body = $"Member with user ID {member.UserID} removed successfully",
                 StatusCode = 200
             };
@@ -148,7 +153,7 @@ public class Function
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                Headers = request.Headers,
+                //Headers = respHeader,
                 Body = JsonSerializer.Serialize(currMember),
                 StatusCode = 200
             };
