@@ -25,8 +25,8 @@ export default function MemberList() {
     then(session => fetch(getMembersUrl, {
       method: "GET",
       headers: new Headers([
-        ["Authorization", session.tokens.idToken]/*,
-        ["Access-Control-Allow-Origin", originUrl],
+        ["Authorization", session.tokens.idToken],
+        ["Access-Control-Allow-Origin", originUrl]/*,
         ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
         ["Access-Control-Allow-Headers", "Authorization"]*/
     ])

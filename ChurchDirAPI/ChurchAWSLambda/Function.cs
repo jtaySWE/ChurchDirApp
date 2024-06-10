@@ -23,6 +23,7 @@ public class Function
     /// <returns></returns>
     public async Task<APIGatewayHttpApiV2ProxyResponse> FunctionHandler(APIGatewayHttpApiV2ProxyRequest request, ILambdaContext context)
     {
+        Console.WriteLine("Lambda function start");
         AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         DynamoDBContext dbContext = new DynamoDBContext(client);
         string userID = null;
@@ -53,6 +54,7 @@ public class Function
 
         } else if (request.RouteKey.Contains("GET /Member") && userID != null)
         {
+            Console.WriteLine($"Getting member of ID {userID}");
             var member = await dbContext.LoadAsync<Member>(userID, userID);
 
             // Make sure this member is already in the database

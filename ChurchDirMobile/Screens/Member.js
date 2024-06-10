@@ -38,8 +38,8 @@ export default function Member({userID, readOnly = false}) {
         {
           method: "GET",
           headers: new Headers([
-            ["Authorization", resp.tokens.idToken]/*,
-            ["Access-Control-Allow-Origin", originUrl],
+            ["Authorization", resp.tokens.idToken],
+            ["Access-Control-Allow-Origin", originUrl]/*,
             ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
             ["Access-Control-Allow-Headers", "Authorization"]*/
         ])
@@ -68,8 +68,8 @@ export default function Member({userID, readOnly = false}) {
         method: "PUT",
         body: JSON.stringify(data),
         headers: new Headers([
-          ["Authorization", resp.tokens.idToken]/*,
-          ["Access-Control-Allow-Origin", originUrl],
+          ["Authorization", resp.tokens.idToken],
+          ["Access-Control-Allow-Origin", originUrl]/*,
           ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
           ["Access-Control-Allow-Headers", "Authorization"]*/
       ])
