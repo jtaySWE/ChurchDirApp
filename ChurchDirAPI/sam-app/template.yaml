@@ -4,14 +4,34 @@ Description: >-
 Transform:
 - AWS::Serverless-2016-10-31
 
+Parameters:
+  TransactionTable:
+    Type: String
+    Default: ChurchMemberProd
+
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Api:
+        Cors:
+          AllowMethods: "'OPTIONS,POST,GET,DELETE,PUT'"
+          AllowHeaders: "'Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version'"
+          AllowOrigin: "'*'"
+        Auth:
+          DefaultAuthorizer: MyCognitoAuthorizer
+          Authorizers:
+            MyCognitoAuthorizer:
+              UserPoolArn:
+                Fn::Sub: arn:aws:cognito-idp:ap-southeast-2:590184025842:userpool/ap-southeast-2_DC1bl9D2J
 
-  # This is a Lambda function config associated with the source code: hello-from-lambda.js
-  helloFromLambdaFunction:
+
+  ChurchMembersFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./src/ScratchLambda/
@@ -25,6 +45,15 @@ Resources:
       Policies:
         # Give Lambda basic execution Permission to the helloFromLambda
       - AWSLambdaBasicExecutionRole
+      - DynamoDBCrudPolicy:
+            TableName: !Ref TransactionTable
+      Events:
+        GetMembers:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /members
+            Method: get
 
 # # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
   ApplicationResourceGroup:
