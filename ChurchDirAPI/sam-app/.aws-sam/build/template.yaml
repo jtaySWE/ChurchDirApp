@@ -6,18 +6,26 @@ Parameters:
   TransactionTable:
     Type: String
     Default: ChurchMemberProd
-Globals:
-  Function:
-    Tracing: Active
-    LoggingConfig:
-      LogFormat: JSON
-  Api:
-    TracingEnabled: true
 Resources:
-  helloFromLambdaFunction:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowMethods: '''OPTIONS,POST,GET,DELETE,PUT'''
+        AllowHeaders: '''Origin, X-Requested-With, Content-Type, Accept, Authorization,
+          Site, Platforms, Version'''
+        AllowOrigin: '''*'''
+      Auth:
+        DefaultAuthorizer: MyCognitoAuthorizer
+        Authorizers:
+          MyCognitoAuthorizer:
+            UserPoolArn:
+              Fn::Sub: arn:aws:cognito-idp:ap-southeast-2:590184025842:userpool/ap-southeast-2_DC1bl9D2J
+  ChurchMembersFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: helloFromLambdaFunction
+      CodeUri: ChurchMembersFunction
       Handler: ScratchLambda::ScratchLambda.Function::FunctionHandler
       Runtime: dotnet8
       Architectures:
@@ -34,10 +42,12 @@ Resources:
         GetMembers:
           Type: Api
           Properties:
+            RestApiId:
+              Ref: MyApi
             Path: /members
             Method: get
     Metadata:
-      SamResourceId: helloFromLambdaFunction
+      SamResourceId: ChurchMembersFunction
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties:
@@ -51,3 +61,10 @@ Resources:
       ResourceGroupName:
         Ref: ApplicationResourceGroup
       AutoConfigurationEnabled: 'true'
+Globals:
+  Function:
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
+  Api:
+    TracingEnabled: true

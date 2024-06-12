@@ -103,27 +103,6 @@ public class Function
                 StatusCode = 201
             };
         }
-        else if (request.RouteKey.Contains("POST /SignIn") && request.Body != null)
-        {
-            JsonNode newMember = JsonNode.Parse(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember["userID"].GetValue<string>());
-
-            // Make sure this member is already in the database
-            if (member == null)
-            {
-                return new APIGatewayHttpApiV2ProxyResponse
-                {
-                    Body = "Incorrect user ID.",
-                    StatusCode = 400
-                };
-            }
-
-            return new APIGatewayHttpApiV2ProxyResponse
-            {
-                Body = JsonSerializer.Serialize(member),
-                StatusCode = 201
-            };
-        }
         else if (request.RouteKey.Contains("DELETE /Member") && userID != null)
         {
             var member = await dbContext.LoadAsync<Member>(userID);

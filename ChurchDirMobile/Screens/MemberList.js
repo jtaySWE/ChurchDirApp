@@ -17,7 +17,8 @@ export default function MemberList() {
     return name.slice(0, 1).toUpperCase();
   }
 
-  const getMembersUrl = apiUrl + "AllMembers"
+  //const getMembersUrl = apiUrl + "AllMembers"
+  const getMembersUrl =  "https://5swtdybofi.execute-api.ap-southeast-2.amazonaws.com/Prod/members"
   const [list, setList] = React.useState([])
 
   useEffect( () => {
