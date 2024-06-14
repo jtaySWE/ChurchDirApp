@@ -11,6 +11,7 @@ using Amazon.Lambda.Core;
 using ScratchLambda.Models;
 
 using Amazon.Lambda.Core;
+using Amazon.Runtime.Internal.Transform;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -29,12 +30,27 @@ public class Function
     public async Task<APIGatewayHttpApiV2ProxyResponse> FunctionHandler(APIGatewayHttpApiV2ProxyRequest request, ILambdaContext context)
     {
         Console.WriteLine("Testing lambda");
+        string allowUrlHeader = "Access-Control-Allow-Origin";
+        string allowedMeth = "Access-Control-Allow-Methods";
+        string originUrl = "";
+        string method = "GET";
+        request.Headers.TryGetValue(allowUrlHeader, out originUrl);
+        request.Headers.TryGetValue(allowedMeth, out method);
+
+        Dictionary<string, string> respHeader = new Dictionary<string, string>()
+        {
+            { allowUrlHeader, originUrl},
+            { allowedMeth, method},
+            {"Access-Control-Allow-Headers", "Content-Type, Authorization" }
+        };
+
         AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         DynamoDBContext dbContext = new DynamoDBContext(client);
         string userID = null;
         var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
         return new APIGatewayHttpApiV2ProxyResponse
         {
+            Headers = respHeader,
             Body = JsonSerializer.Serialize(members),
             StatusCode = 200
         };

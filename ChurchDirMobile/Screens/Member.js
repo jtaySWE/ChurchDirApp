@@ -39,8 +39,8 @@ export default function Member({userID, readOnly = false}) {
           method: "GET",
           headers: new Headers([
             ["Authorization", resp.tokens.idToken],
-            ["Access-Control-Allow-Origin", originUrl]/*,
-            ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
+            ["Access-Control-Allow-Origin", originUrl],
+            ["Access-Control-Allow-Methods", "GET"]/*,
             ["Access-Control-Allow-Headers", "Authorization"]*/
         ])
         })
@@ -69,8 +69,8 @@ export default function Member({userID, readOnly = false}) {
         body: JSON.stringify(data),
         headers: new Headers([
           ["Authorization", resp.tokens.idToken],
-          ["Access-Control-Allow-Origin", originUrl]/*,
-          ["Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE"],
+          ["Access-Control-Allow-Origin", originUrl],
+          ["Access-Control-Allow-Methods", "PUT"]/*,
           ["Access-Control-Allow-Headers", "Authorization"]*/
       ])
       }))
