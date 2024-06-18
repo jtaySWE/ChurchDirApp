@@ -27,10 +27,12 @@ public class Function
         AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         DynamoDBContext dbContext = new DynamoDBContext(client);
         string userID = null;
-        /*Dictionary<string, string> respHeader = new Dictionary<string, string>()
+        Dictionary<string, string> respHeader = new Dictionary<string, string>()
         {
-            { "Access-Control-Allow-Origin", "*"}
-        };*/
+            { "Access-Control-Allow-Origin", "http://localhost:8081"},
+            {"Access-Control-Allow-Headers", "*" },
+            {"Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE" }
+        };
 
         // Get user ID if in path parameter
         if (request.PathParameters != null)
@@ -47,7 +49,7 @@ public class Function
             var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                //Headers = respHeader,
+                Headers = respHeader,
                 Body = JsonSerializer.Serialize(members),
                 StatusCode = 200
             };
@@ -62,7 +64,7 @@ public class Function
             {
                 return new APIGatewayHttpApiV2ProxyResponse
                 {
-                    //Headers = respHeader,
+                    Headers = respHeader,
                     Body = $"The member with user ID {userID} does not exists.",
                     StatusCode = 400
                 };
@@ -70,7 +72,7 @@ public class Function
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                //Headers = respHeader,
+                Headers = respHeader,
                 Body = JsonSerializer.Serialize(member),
                 StatusCode = 200
             };
@@ -132,7 +134,7 @@ public class Function
             await dbContext.DeleteAsync(member);
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                //Headers = respHeader,
+                Headers = respHeader,
                 Body = $"Member with user ID {member.UserID} removed successfully",
                 StatusCode = 200
             };
@@ -155,7 +157,7 @@ public class Function
 
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                //Headers = respHeader,
+                Headers = respHeader,
                 Body = JsonSerializer.Serialize(currMember),
                 StatusCode = 200
             };

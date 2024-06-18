@@ -39,9 +39,9 @@ export default function Member({userID, readOnly = false}) {
           method: "GET",
           headers: new Headers([
             ["Authorization", resp.tokens.idToken],
-            ["Access-Control-Allow-Origin", originUrl],
-            ["Access-Control-Allow-Methods", "GET"]/*,
-            ["Access-Control-Allow-Headers", "Authorization"]*/
+            ["Access-Control-Allow-Origin", "*"],
+            ["Access-Control-Allow-Methods", "GET,DELETE,OPTIONS"],
+            ["Access-Control-Allow-Headers", "*"]
         ])
         })
     ).then(res => res.json())

@@ -32,16 +32,16 @@ public class Function
         Console.WriteLine("Testing lambda");
         string allowUrlHeader = "Access-Control-Allow-Origin";
         string allowedMeth = "Access-Control-Allow-Methods";
-        string originUrl = "";
-        string method = "GET";
-        request.Headers.TryGetValue(allowUrlHeader, out originUrl);
-        request.Headers.TryGetValue(allowedMeth, out method);
+        string originUrl = "http://localhost:8081";
+        string method = "OPTIONS,POST,GET,DELETE,PUT";
+        //request.Headers.TryGetValue(allowUrlHeader, out originUrl);
+        //request.Headers.TryGetValue(allowedMeth, out method);
 
         Dictionary<string, string> respHeader = new Dictionary<string, string>()
         {
             { allowUrlHeader, originUrl},
             { allowedMeth, method},
-            {"Access-Control-Allow-Headers", "Content-Type, Authorization" }
+            {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version" }
         };
 
         AmazonDynamoDBClient client = new AmazonDynamoDBClient();

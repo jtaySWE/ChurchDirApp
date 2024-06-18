@@ -27,10 +27,10 @@ export default function MemberList() {
       method: "GET",
       headers: new Headers([
         ["Authorization", session.tokens.idToken],
-        ["Access-Control-Allow-Origin", originUrl],
-        ["Access-Control-Allow-Methods", "GET"]/*,
-        ["Access-Control-Allow-Headers", "Authorization"]*/
-    ])
+        ["Access-Control-Allow-Origin", originUrl]/*,
+        ["Access-Control-Allow-Methods", "GET,OPTIONS"],
+        ["Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"]
+    */])
     }))
     .then(res => res.json())
     .then(result => {
