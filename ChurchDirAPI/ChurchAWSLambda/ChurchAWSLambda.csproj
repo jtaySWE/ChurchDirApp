@@ -16,4 +16,7 @@
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.4.3" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.303.6" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JWTTokenLib\JWTTokenLib.csproj" />
+  </ItemGroup>
 </Project>

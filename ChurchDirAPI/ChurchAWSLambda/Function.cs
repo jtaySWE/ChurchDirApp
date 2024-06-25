@@ -3,6 +3,8 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using ChurchAWSLambda.Models;
+using JWTTokenLib;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -33,6 +35,56 @@ public class Function
             {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version" },
             {"Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE" }
         };
+
+        string token = null;
+        request.Headers.TryGetValue("Authorization", out token);
+
+        // Validate token
+        try
+        {
+            JwtSecurityToken jwtToken = JWTUtils.ConvertStringToToken(token);
+            DecodedToken decodedToken = JWTUtils.DecodeJwt(jwtToken);
+
+            // Check if it's valid and not expired
+            DateTime currTime = DateTime.Now;
+            if (currTime < decodedToken.ValidFrom || currTime >= decodedToken.Expiration)
+            {
+                return new APIGatewayHttpApiV2ProxyResponse
+                {
+                    Body = "Token is not valid or already expired!",
+                    StatusCode = 400
+                };
+            }
+
+            // Check user's group in token payload to see if he's admin
+            using (JsonDocument doc = JsonDocument.Parse(decodedToken.Payload))
+            {
+                JsonElement root = doc.RootElement;
+                JsonElement userGroups = root.GetProperty("cognito:groups");
+                for (int i = 0; i < userGroups.GetArrayLength(); i++)
+                {
+                    if (userGroups[i].ValueEquals("admins"))
+                    {
+                        break;
+                    } else if (i == userGroups.GetArrayLength() - 1)
+                    {
+                        return new APIGatewayHttpApiV2ProxyResponse
+                        {
+                            Body = "User must be an admin!",
+                            StatusCode = 400
+                        };
+                    }
+                }
+            }
+
+        } catch (Exception ex)
+        {
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                Body = "Not a token!",
+                StatusCode = 400
+            };
+        }
 
         // Get user ID if in path parameter
         /*if (request.PathParameters != null)

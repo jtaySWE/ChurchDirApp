@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChurchAWSLambda", "ChurchAW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScratchLambda", "sam-app\src\ScratchLambda\ScratchLambda.csproj", "{59851166-C386-4D48-81E2-C9D99B664B6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTTokenLib", "JWTTokenLib\JWTTokenLib.csproj", "{A2D4D411-CBB7-44D7-A0A5-EEAA81627272}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{59851166-C386-4D48-81E2-C9D99B664B6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59851166-C386-4D48-81E2-C9D99B664B6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59851166-C386-4D48-81E2-C9D99B664B6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2D4D411-CBB7-44D7-A0A5-EEAA81627272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2D4D411-CBB7-44D7-A0A5-EEAA81627272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2D4D411-CBB7-44D7-A0A5-EEAA81627272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2D4D411-CBB7-44D7-A0A5-EEAA81627272}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
