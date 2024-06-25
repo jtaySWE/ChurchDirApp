@@ -16,7 +16,7 @@ public class Function
 {
 
     /// <summary>
-    /// A simple function that takes a string and does a ToUpper
+    /// Gets all members
     /// </summary>
     /// <param name="request">The event for the Lambda function handler to process.</param>
     /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
@@ -30,12 +30,12 @@ public class Function
         Dictionary<string, string> respHeader = new Dictionary<string, string>()
         {
             { "Access-Control-Allow-Origin", "http://localhost:8081"},
-            {"Access-Control-Allow-Headers", "*" },
+            {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version" },
             {"Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE" }
         };
 
         // Get user ID if in path parameter
-        if (request.PathParameters != null)
+        /*if (request.PathParameters != null)
         {
             if (request.PathParameters.ContainsKey("userID"))
             {
@@ -44,17 +44,17 @@ public class Function
         }
 
         if (request.RouteKey.Contains("GET /AllMembers"))
+        {*/
+        // Get all members
+        var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
+        return new APIGatewayHttpApiV2ProxyResponse
         {
-            // Get all members
-            var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
-            return new APIGatewayHttpApiV2ProxyResponse
-            {
-                Headers = respHeader,
-                Body = JsonSerializer.Serialize(members),
-                StatusCode = 200
-            };
+            Headers = respHeader,
+            Body = JsonSerializer.Serialize(members),
+            StatusCode = 200
+        };
 
-        } else if (request.RouteKey.Contains("GET /Member") && userID != null)
+        /*} else if (request.RouteKey.Contains("GET /Member") && userID != null)
         {
             Console.WriteLine($"Getting member of ID {userID}");
             var member = await dbContext.LoadAsync<Member>(userID, userID);
@@ -75,47 +75,6 @@ public class Function
                 Headers = respHeader,
                 Body = JsonSerializer.Serialize(member),
                 StatusCode = 200
-            };
-        } else if (request.RouteKey.Contains("POST /Member") && request.Body != null)
-        {
-            var newMember = JsonSerializer.Deserialize<Member>(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember.PK, newMember.SK);
-
-            // Make sure this member is not already in the database, so that we can add new member
-            if (member != null)
-            {
-                return new APIGatewayHttpApiV2ProxyResponse
-                {
-                    Body = $"The member with user ID {newMember.PK} already exists.",
-                    StatusCode = 400
-                };
-            }
-            await dbContext.SaveAsync(newMember);
-
-            return new APIGatewayHttpApiV2ProxyResponse
-            {
-                Body = JsonSerializer.Serialize(newMember),
-                StatusCode = 201
-            };
-        } else if (request.RouteKey.Contains("POST /SignIn") && request.Body != null)
-        {
-            JsonNode newMember = JsonNode.Parse(request.Body);
-            var member = await dbContext.LoadAsync<Member>(newMember["userID"].GetValue<string>());
-
-            // Make sure this member is already in the database
-            if (member == null)
-            {
-                return new APIGatewayHttpApiV2ProxyResponse
-                {
-                    Body = "Incorrect user ID.",
-                    StatusCode = 400
-                };
-            }
-
-            return new APIGatewayHttpApiV2ProxyResponse
-            {
-                Body = JsonSerializer.Serialize(member),
-                StatusCode = 201
             };
         } else if (request.RouteKey.Contains("DELETE /Member") && userID != null)
         {
@@ -167,6 +126,139 @@ public class Function
         {
             Body = "Bad Request",
             StatusCode = 400
+        };*/
+    }
+
+    /// <summary>
+    /// Gets a member by user ID
+    /// </summary>
+    /// <param name="request">The event for the Lambda function handler to process.</param>
+    /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
+    /// <returns></returns>
+    public async Task<APIGatewayHttpApiV2ProxyResponse> GetMemberHandler(APIGatewayHttpApiV2ProxyRequest request, ILambdaContext context)
+    {
+        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+        DynamoDBContext dbContext = new DynamoDBContext(client);
+        string userID = null;
+        Dictionary<string, string> respHeader = new Dictionary<string, string>()
+        {
+            { "Access-Control-Allow-Origin", "http://localhost:8081"},
+            {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version" },
+            {"Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE" }
+        };
+
+        // Get user ID if in path parameter
+        if (request.PathParameters != null)
+        {
+            if (request.PathParameters.ContainsKey("userID"))
+            {
+                userID = request.PathParameters["userID"];
+            }
+        }
+        var member = await dbContext.LoadAsync<Member>(userID, userID);
+
+        // Make sure this member is already in the database
+        if (member == null || userID == null)
+        {
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                Headers = respHeader,
+                Body = $"The member with user ID {userID} does not exists.",
+                StatusCode = 400
+            };
+        }
+
+        return new APIGatewayHttpApiV2ProxyResponse
+        {
+            Headers = respHeader,
+            Body = JsonSerializer.Serialize(member),
+            StatusCode = 200
+        };
+    }
+
+    /// <summary>
+    /// Deletes member by user ID
+    /// </summary>
+    /// <param name="request">The event for the Lambda function handler to process.</param>
+    /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
+    /// <returns></returns>
+    public async Task<APIGatewayHttpApiV2ProxyResponse> DelMemberHandler(APIGatewayHttpApiV2ProxyRequest request, ILambdaContext context)
+    {
+        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+        DynamoDBContext dbContext = new DynamoDBContext(client);
+        string userID = null;
+        Dictionary<string, string> respHeader = new Dictionary<string, string>()
+        {
+            { "Access-Control-Allow-Origin", "http://localhost:8081"},
+            {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version" },
+            {"Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE" }
+        };
+
+        // Get user ID if in path parameter
+        if (request.PathParameters != null)
+        {
+            if (request.PathParameters.ContainsKey("userID"))
+            {
+                userID = request.PathParameters["userID"];
+            }
+        }
+        var member = await dbContext.LoadAsync<Member>(userID);
+
+        // Make sure this member is already in the database
+        if (member == null || userID == null)
+        {
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                Body = $"The member with user ID {userID} does not exists.",
+                StatusCode = 400
+            };
+        }
+
+        await dbContext.DeleteAsync(member);
+        return new APIGatewayHttpApiV2ProxyResponse
+        {
+            Headers = respHeader,
+            Body = $"Member with user ID {member.UserID} removed successfully",
+            StatusCode = 200
+        };
+    }
+
+    /// <summary>
+    /// Updates a member's details
+    /// </summary>
+    /// <param name="request">The event for the Lambda function handler to process.</param>
+    /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
+    /// <returns></returns>
+    public async Task<APIGatewayHttpApiV2ProxyResponse> UpdateMemHandler(APIGatewayHttpApiV2ProxyRequest request, ILambdaContext context)
+    {
+        AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+        DynamoDBContext dbContext = new DynamoDBContext(client);
+        Dictionary<string, string> respHeader = new Dictionary<string, string>()
+        {
+            { "Access-Control-Allow-Origin", "http://localhost:8081"},
+            {"Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Site, Platforms, Version" },
+            {"Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE" }
+        };
+        
+        var currMember = JsonSerializer.Deserialize<Member>(request.Body);
+        var member = await dbContext.LoadAsync<Member>(currMember.PK, currMember.SK);
+
+        // Make sure this member is in the database, to modify his/her data
+        if (member == null)
+        {
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                Body = $"The member with user ID {currMember.PK} does not exists.",
+                StatusCode = 400
+            };
+        }
+        await dbContext.SaveAsync(currMember);
+
+        return new APIGatewayHttpApiV2ProxyResponse
+        {
+            Headers = respHeader,
+            Body = JsonSerializer.Serialize(currMember),
+            StatusCode = 200
         };
     }
 

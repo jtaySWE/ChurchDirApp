@@ -1,7 +1,7 @@
 import { SectionList, View, Text, StyleSheet, Pressable } from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
-import { apiUrl, originUrl } from "../config.js";
+import { apiUrl} from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 export default function MemberList() {
@@ -17,8 +17,8 @@ export default function MemberList() {
     return name.slice(0, 1).toUpperCase();
   }
 
-  //const getMembersUrl = apiUrl + "AllMembers"
-  const getMembersUrl =  "https://5swtdybofi.execute-api.ap-southeast-2.amazonaws.com/Prod/members"
+  const getMembersUrl = apiUrl + "AllMembers"
+  //const getMembersUrl =  "https://5swtdybofi.execute-api.ap-southeast-2.amazonaws.com/Prod/members"
   const [list, setList] = React.useState([])
 
   useEffect( () => {
@@ -26,11 +26,7 @@ export default function MemberList() {
     then(session => fetch(getMembersUrl, {
       method: "GET",
       headers: new Headers([
-        ["Authorization", session.tokens.idToken],
-        //["Access-Control-Allow-Origin", originUrl],
-        //["Access-Control-Allow-Methods", "GET,OPTIONS"],
-        //["Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Access-Control-Allow-Methods, Authorization"]
-        //["Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Access-Control-Allow-Methods, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"]
+        ["Authorization", session.tokens.idToken]
     ])
     }))
     .then(res => res.json())

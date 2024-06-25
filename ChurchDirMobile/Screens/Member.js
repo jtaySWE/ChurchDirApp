@@ -3,7 +3,7 @@ import Input from '../Components/Input';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { updateUserAttributes } from 'aws-amplify/auth';
-import { apiUrl, originUrl } from "../config.js";
+import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 /**
@@ -38,10 +38,7 @@ export default function Member({userID, readOnly = false}) {
         {
           method: "GET",
           headers: new Headers([
-            ["Authorization", resp.tokens.idToken],
-            //["Access-Control-Allow-Origin", originUrl],
-            //["Access-Control-Allow-Methods", "GET,DELETE,OPTIONS"],
-            //["Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Access-Control-Allow-Methods, Authorization"]
+            ["Authorization", resp.tokens.idToken]
         ])
         })
     ).then(res => res.json())
@@ -68,10 +65,7 @@ export default function Member({userID, readOnly = false}) {
         method: "PUT",
         body: JSON.stringify(data),
         headers: new Headers([
-          ["Authorization", resp.tokens.idToken],
-          ["Access-Control-Allow-Origin", originUrl],
-          ["Access-Control-Allow-Methods", "PUT"]/*,
-          ["Access-Control-Allow-Headers", "Authorization"]*/
+          ["Authorization", resp.tokens.idToken]
       ])
       }))
       .then(resp => {
