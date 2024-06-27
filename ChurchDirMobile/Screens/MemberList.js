@@ -26,7 +26,7 @@ export default function MemberList() {
     then(session => fetch(getMembersUrl, {
       method: "GET",
       headers: new Headers([
-        ["Authorization", session.tokens.idToken]
+        ["Authorization", session.tokens.idToken.toString()]
     ])
     }))
     .then(res => res.json())

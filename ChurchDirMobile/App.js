@@ -8,8 +8,9 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
-
 import amplifyconfig from './src/amplifyconfiguration.json';
+import { fetchAuthSession } from 'aws-amplify/auth';
+
 Amplify.configure(amplifyconfig);
 
 export default function App() {
@@ -18,6 +19,10 @@ export default function App() {
   function MainScreen() {
     const Tab = createBottomTabNavigator()
     const { user, signOut } = useAuthenticator((context) => [context.user]);
+    const [isAdmin, setIsAdmin] = React.useState(false)
+    fetchAuthSession().then(session => {
+      setIsAdmin(session.tokens.idToken.payload['cognito:groups'].includes('admins'))
+    })
 
     return (
       <Tab.Navigator 
@@ -42,7 +47,7 @@ export default function App() {
       })}
       >
         <Tab.Screen name='Home' children={() => (<Member userID={user.userId}/>)}/>
-        <Tab.Screen name='Members' children={() => (<MemberList/>)}/>
+        {isAdmin && (<Tab.Screen name='Members' children={() => (<MemberList/>)}/>)}
       </Tab.Navigator>
     )
   }
