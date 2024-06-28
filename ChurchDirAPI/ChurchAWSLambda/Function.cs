@@ -35,26 +35,41 @@ public class Function
         };
 
         string token;
+        JwtSecurityToken jwtToken;
+        DecodedToken decodedToken;
         request.Headers.TryGetValue("Authorization", out token);
+        context.Logger.LogLine(token);
 
         // Validate token
         try
         {
-            JwtSecurityToken jwtToken = JWTUtils.ConvertStringToToken(token);
-            DecodedToken decodedToken = JWTUtils.DecodeJwt(jwtToken);
-
-            // Check if it's valid and not expired
-            DateTime currTime = DateTime.Now;
-            if (currTime < decodedToken.ValidFrom || currTime >= decodedToken.Expiration)
+            jwtToken = JWTUtils.ConvertStringToToken(token);
+            decodedToken = JWTUtils.DecodeJwt(jwtToken);
+        } catch (Exception ex)
+        {
+            context.Logger.LogLine("Seen as invalid token");
+            return new APIGatewayHttpApiV2ProxyResponse
             {
-                return new APIGatewayHttpApiV2ProxyResponse
-                {
-                    Body = "Token is not valid or already expired!",
-                    StatusCode = 400
-                };
-            }
+                Body = "{\"error\": \"Not a token!\"}",
+                StatusCode = 400
+            };
+        }
 
-            // Check user's group in token payload to see if he's admin
+        // Check if it's valid and not expired
+        DateTime currTime = DateTime.Now;
+        if (currTime < decodedToken.ValidFrom || currTime >= decodedToken.Expiration)
+        {
+            context.Logger.LogLine("Token can't be used");
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                Body = "{\"error\": \"Token is not valid or already expired!\"}",
+                StatusCode = 400
+            };
+        }
+
+        // Check user's group in token payload to see if he's admin
+        try
+        {
             using (JsonDocument doc = JsonDocument.Parse(decodedToken.Payload))
             {
                 JsonElement root = doc.RootElement;
@@ -64,28 +79,31 @@ public class Function
                     if (userGroups[i].ValueEquals("admins"))
                     {
                         break;
-                    } else if (i == userGroups.GetArrayLength() - 1)
+                    }
+                    else if (i == userGroups.GetArrayLength() - 1)
                     {
+                        context.Logger.LogLine("User not admin according to token");
                         return new APIGatewayHttpApiV2ProxyResponse
                         {
-                            Body = "User must be an admin!",
+                            Body = "{\"error\": \"User must be an admin!\"}",
                             StatusCode = 400
                         };
                     }
                 }
             }
-
         } catch (Exception ex)
         {
+            context.Logger.LogLine("Token payload bad");
             return new APIGatewayHttpApiV2ProxyResponse
             {
-                Body = "Not a token!",
+                Body = "{\"error\": \"Error in using token payload!\"}",
                 StatusCode = 400
             };
         }
 
         // Get all members
         var members = await dbContext.ScanAsync<Member>(default).GetRemainingAsync();
+        context.Logger.LogLine("Success in getting members");
         return new APIGatewayHttpApiV2ProxyResponse
         {
             Headers = respHeader,

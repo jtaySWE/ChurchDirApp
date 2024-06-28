@@ -32,6 +32,11 @@ export default function MemberList() {
     .then(res => res.json())
     .then(result => {
       if (result) {
+        if (result.error) {
+          console.log(result.error)
+          return
+        }
+
         result.sort((a, b) => {
           return (a.GivenName + ' ' + a.Surname).toLowerCase()
           .localeCompare((b.GivenName + ' ' + b.Surname).toLowerCase())
@@ -50,9 +55,7 @@ export default function MemberList() {
               return list;
           }, []))
       }
-    }).catch(error => {
-      console.error(error)
-    });
+    }).catch(error => console.error(error));
 }, [])
 
   return (

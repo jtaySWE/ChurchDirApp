@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Member from './Screens/Member';
 import MemberList from './Screens/MemberList';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
@@ -20,9 +20,12 @@ export default function App() {
     const Tab = createBottomTabNavigator()
     const { user, signOut } = useAuthenticator((context) => [context.user]);
     const [isAdmin, setIsAdmin] = React.useState(false)
-    fetchAuthSession().then(session => {
+    
+    useEffect(() => {
+      fetchAuthSession().
+      then(session => {
       setIsAdmin(session.tokens.idToken.payload['cognito:groups'].includes('admins'))
-    })
+      })}, [])
 
     return (
       <Tab.Navigator 
