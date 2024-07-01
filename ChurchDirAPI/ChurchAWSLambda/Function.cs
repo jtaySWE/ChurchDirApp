@@ -5,6 +5,7 @@ using Amazon.Lambda.Core;
 using ChurchAWSLambda.Models;
 using JWTTokenLib;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -70,8 +71,14 @@ public class Function
         // Check user's group in token payload to see if he's admin
         try
         {
-            using (JsonDocument doc = JsonDocument.Parse(decodedToken.Payload))
+            // Decode payload
+            byte[] payloadData = Convert.FromBase64String(decodedToken.Payload);
+            string decodedPayload = Encoding.UTF8.GetString(payloadData);
+            context.Logger.LogLine("Parsing payload");
+            
+            using (JsonDocument doc = JsonDocument.Parse(decodedPayload))
             {
+                context.Logger.LogLine("Retrieving user group");
                 JsonElement root = doc.RootElement;
                 JsonElement userGroups = root.GetProperty("cognito:groups");
                 for (int i = 0; i < userGroups.GetArrayLength(); i++)
@@ -93,7 +100,7 @@ public class Function
             }
         } catch (Exception ex)
         {
-            context.Logger.LogLine("Token payload bad");
+            context.Logger.LogLine("Can't parse payload");
             return new APIGatewayHttpApiV2ProxyResponse
             {
                 Body = "{\"error\": \"Error in using token payload!\"}",
