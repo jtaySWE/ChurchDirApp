@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Member from './Screens/Member';
 import MemberList from './Screens/MemberList';
+import ImportDirectory from './Screens/ImportDirectory';
 import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Amplify } from 'aws-amplify';
@@ -37,6 +38,7 @@ export default function App() {
           const icons = {
             Home: 'home',
             Members: 'people',
+            Directory: 'folder-alt'
           };
     
           return (
@@ -51,6 +53,7 @@ export default function App() {
       >
         <Tab.Screen name='Home' children={() => (<Member userID={user.userId}/>)}/>
         {isAdmin && (<Tab.Screen name='Members' children={() => (<MemberList/>)}/>)}
+        {isAdmin && (<Tab.Screen name='Directory' children={() => (<ImportDirectory/>)}/>)}
       </Tab.Navigator>
     )
   }
