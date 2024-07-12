@@ -438,10 +438,10 @@ public class Function
         // Remove members of given email to have a single instance of signed up member with the said email
         for ( int i = 0; i < response.Items.Count; i++)
         {
-            AttributeValue id;
-            if (response.Items[i].TryGetValue("pk", out id))
+            AttributeValue pk, sk;
+            if (response.Items[i].TryGetValue("pk", out pk) && response.Items[i].TryGetValue("sk", out sk))
             {
-                var member = await dbContext.LoadAsync<Member>(id.S);
+                var member = await dbContext.LoadAsync<Member>(pk.S, sk.S);
                 await dbContext.DeleteAsync(member);
             }
         }
