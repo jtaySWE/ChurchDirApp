@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useForm } from 'react-hook-form';
-import Input from '../Components/Input';
+import InputComp from '../Components/InputComp';
 import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import Member from './Member';
 import React from 'react';
@@ -41,8 +41,8 @@ export default function Login({handleLogin}) {
       { isRegistering ? 
       <Member isSignUp={true} handleSignUp={onRegistered} loggedUsername=""/>
       : <ScrollView>
-        <Input name="username" control={control} placeholder="Username" defValue=""/>
-        <Input name="password" control={control} placeholder="Password" defValue="" isPassword={true}/>
+        <InputComp name="username" control={control} placeholder="Username" defValue=""/>
+        <InputComp name="password" control={control} placeholder="Password" defValue="" isPassword={true}/>
         <Button 
         title="Login"
         onPress={handleSubmit(onSubmit)}

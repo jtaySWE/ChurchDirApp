@@ -11,8 +11,25 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import amplifyconfig from './src/amplifyconfiguration.json';
 import { fetchAuthSession } from 'aws-amplify/auth';
+import { ThemeProvider, createTheme } from '@rneui/themed';
 
 Amplify.configure(amplifyconfig);
+
+const theme = createTheme({
+  lightColors: {
+    primary: '#e7e7e8',
+    secondary: '#07c7ed'
+  },
+  darkColors: {
+    primary: '#000',
+  },
+  mode: 'light',
+  components: {
+    Button: {
+      color: 'secondary'
+    }
+  }
+});
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -76,16 +93,18 @@ export default function App() {
             />
           )
         }}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <SafeAreaView style={styles.safeContainer}>
-            <NavigationContainer>
-              <Stack.Navigator initialRouteName='Main'>
-                <Stack.Screen name='Main' component={MainScreen} options={{headerShown: false}}/>
-                <Stack.Screen name='Profile' component={MemberProfile}/>
-              </Stack.Navigator>
-            </NavigationContainer>
-          </SafeAreaView>
-        </TouchableWithoutFeedback>
+        <ThemeProvider theme={theme}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <SafeAreaView style={styles.safeContainer}>
+              <NavigationContainer>
+                <Stack.Navigator initialRouteName='Main'>
+                  <Stack.Screen name='Main' component={MainScreen} options={{headerShown: false}}/>
+                  <Stack.Screen name='Profile' component={MemberProfile}/>
+                </Stack.Navigator>
+              </NavigationContainer>
+            </SafeAreaView>
+          </TouchableWithoutFeedback>
+        </ThemeProvider>
       </Authenticator>
     </Authenticator.Provider>
   );

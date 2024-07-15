@@ -25,6 +25,8 @@
     "@react-navigation/bottom-tabs": "^6.5.14",
     "@react-navigation/native": "^6.1.12",
     "@react-navigation/native-stack": "^6.9.26",
+    "@rneui/base": "^4.0.0-rc.8",
+    "@rneui/themed": "^4.0.0-rc.8",
     "aws-amplify": "^6.3.0",
     "expo": "~50.0.7",
     "expo-font": "^12.0.4",

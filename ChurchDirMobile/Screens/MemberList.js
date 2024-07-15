@@ -1,4 +1,5 @@
-import { SectionList, View, Text, StyleSheet, Pressable } from "react-native";
+import { SectionList, View, StyleSheet, Pressable } from "react-native";
+import { Text, ListItem } from "@rneui/themed";
 import React, { useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { apiUrl} from "../config.js";
@@ -62,18 +63,19 @@ export default function MemberList() {
     <SectionList style={styles.listContainer}
         sections={list}
         renderItem={({item}) => (
-            <Pressable onPress={() => onSelectMember(item.UserID)}
+            <ListItem bottomDivider onPress={() => onSelectMember(item.UserID)}
             style={({pressed}) => [{
               backgroundColor: pressed ? '#f0fbff' : 'white'
             }]}>
-              <View style={styles.itemContainer}>
-                  <Text>{item.GivenName + ' ' + item.Surname}</Text>
-              </View>
-            </Pressable>
-          )}
-          renderSectionHeader={({section: {title, data}}) => (
-            data.length > 0 && (<Text style={styles.headerSection}>{title}</Text>)
-          )}
+              <ListItem.Content>
+                <ListItem.Title>{item.GivenName + ' ' + item.Surname}</ListItem.Title>
+              </ListItem.Content>
+              <ListItem.Chevron/>
+            </ListItem>
+        )}
+        renderSectionHeader={({section: {title, data}}) => (
+          data.length > 0 && (<Text style={styles.headerSection}>{title}</Text>)
+        )}
     />
   )
 }
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
     color: "black",
     fontWeight: 'bold',
-    fontSize: 12,
     height: 20
   },
   listContainer: {

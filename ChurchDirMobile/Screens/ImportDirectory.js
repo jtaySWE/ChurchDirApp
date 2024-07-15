@@ -1,4 +1,5 @@
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Button } from '@rneui/themed';
 import React, { useEffect } from 'react';
 import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';

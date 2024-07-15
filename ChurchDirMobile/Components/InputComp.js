@@ -1,15 +1,16 @@
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Input } from '@rneui/themed';
 import { useController } from 'react-hook-form';
 
 
-export default function Input({name, control, placeholder, defValue, isPassword = false, isReadOnly = false}) {
+export default function InputComp({name, control, placeholder, defValue, isPassword = false, isReadOnly = false}) {
     const {field} = useController({
       control,
       defaultValue: defValue,
       name
     })
     return (
-      <TextInput 
+      <Input 
         value={field.value}
         onChangeText={field.onChange}
         placeholder={placeholder} 
