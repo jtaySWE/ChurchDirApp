@@ -6,12 +6,12 @@ import Member from './Screens/Member';
 import MemberList from './Screens/MemberList';
 import ImportDirectory from './Screens/ImportDirectory';
 import React, { useEffect } from 'react';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+//import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import amplifyconfig from './src/amplifyconfiguration.json';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { ThemeProvider, createTheme } from '@rneui/themed';
+import { ThemeProvider, createTheme, Icon } from '@rneui/themed';
 
 Amplify.configure(amplifyconfig);
 
@@ -49,8 +49,8 @@ export default function App() {
       <Tab.Navigator 
       initialRouteName='Home'
       screenOptions={({route}) => ({
-        headerRight: () => (<Icon.Button name='logout' 
-        onPress={signOut} color="black" backgroundColor="white"/>),
+        headerRight: () => (<Icon name='logout' 
+        onPress={signOut} type='simple-line-icon' style={styles.iconStyle}/>),
         tabBarIcon: ({ color, size }) => {
           const icons = {
             Home: 'home',
@@ -63,6 +63,7 @@ export default function App() {
               name={icons[route.name]}
               color={color}
               size={size}
+              type='simple-line-icon'
             />
           );
         }
@@ -119,5 +120,8 @@ function MemberProfile({navigation, route}) {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1
+  },
+  iconStyle: {
+    marginRight: 8
   }
 });
