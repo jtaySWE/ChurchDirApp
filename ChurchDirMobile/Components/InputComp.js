@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
-import { Input } from '@rneui/themed';
+import { StyleSheet, View } from 'react-native';
+import { Input, Text } from '@rneui/themed';
 import { useController } from 'react-hook-form';
 
 
@@ -10,23 +10,24 @@ export default function InputComp({name, control, placeholder, defValue, isPassw
       name
     })
     return (
+      <View style={styles.input}>
+      <Text style={styles.label}>{placeholder}</Text>
       <Input 
         value={field.value}
         onChangeText={field.onChange}
         placeholder={placeholder} 
-        style={styles.input}
         secureTextEntry={isPassword}
         readOnly={isReadOnly}
         />
+        </View>
       )
   }
 
   const styles = StyleSheet.create({
+    label: {
+      marginLeft: 8
+    },
     input: {
-      height: 48,
-      margin: 8,
-      borderWidth: 1,
-      padding: 10,
-      borderRadius: 8
+      marginBottom: 8
     }
   });

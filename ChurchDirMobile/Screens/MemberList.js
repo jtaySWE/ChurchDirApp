@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
     color: "black",
     fontWeight: 'bold',
-    height: 20
+    height: 20,
+    paddingLeft: 16
   },
   listContainer: {
     backgroundColor: "white"

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import InputComp from '../Components/InputComp.js';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button } from '@rneui/themed';
+import { Button, Card } from '@rneui/themed';
 import React, { useEffect } from 'react';
 import { updateUserAttributes } from 'aws-amplify/auth';
 import { apiUrl } from "../config.js";
@@ -82,15 +82,18 @@ export default function Member({userID, readOnly = false}) {
   return (
     <View style={styles.container}>
         <ScrollView>
-        <InputComp name="GivenName" control={control} placeholder="Given name" defValue={givenName} isReadOnly={readOnly}/>
-        <InputComp name="Surname" control={control} placeholder="Surname" defValue={surname} isReadOnly={readOnly}/>
-        <InputComp name="Email" control={control} placeholder="Email" defValue={email} isReadOnly={true}/>
-        <InputComp name="Phone" control={control} placeholder="Phone" defValue={phone} isReadOnly={readOnly}/>
-        <InputComp name="Address" control={control} placeholder="Address" defValue={address} isReadOnly={readOnly}/>
-        { !readOnly && <Button 
-        title="Save"
-        onPress={handleSubmit(onSubmit)}
-        />}
+          <Card>
+            <InputComp name="GivenName" control={control} placeholder="Given name" defValue={givenName} isReadOnly={readOnly}/>
+            <InputComp name="Surname" control={control} placeholder="Surname" defValue={surname} isReadOnly={readOnly}/>
+            <InputComp name="Email" control={control} placeholder="Email" defValue={email} isReadOnly={true}/>
+            <InputComp name="Phone" control={control} placeholder="Phone" defValue={phone} isReadOnly={readOnly}/>
+            <InputComp name="Address" control={control} placeholder="Address" defValue={address} isReadOnly={readOnly}/>
+            {!readOnly && <Button
+            style={styles.button}
+            title="Save"
+            onPress={handleSubmit(onSubmit)}
+            />}
+        </Card>
         </ScrollView>
     </View>
   );
@@ -100,5 +103,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch'
+  },
+  button: {
+    marginTop: 32
   }
 });

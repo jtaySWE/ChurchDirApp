@@ -6,7 +6,6 @@ import Member from './Screens/Member';
 import MemberList from './Screens/MemberList';
 import ImportDirectory from './Screens/ImportDirectory';
 import React, { useEffect } from 'react';
-//import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import amplifyconfig from './src/amplifyconfiguration.json';
@@ -55,7 +54,7 @@ export default function App() {
           const icons = {
             Home: 'home',
             Members: 'people',
-            Directory: 'folder-alt'
+            Import: 'folder-alt'
           };
     
           return (
@@ -71,7 +70,7 @@ export default function App() {
       >
         <Tab.Screen name='Home' children={() => (<Member userID={user.userId}/>)}/>
         {isAdmin && (<Tab.Screen name='Members' children={() => (<MemberList/>)}/>)}
-        {isAdmin && (<Tab.Screen name='Directory' children={() => (<ImportDirectory/>)}/>)}
+        {isAdmin && (<Tab.Screen name='Import' children={() => (<ImportDirectory/>)}/>)}
       </Tab.Navigator>
     )
   }
