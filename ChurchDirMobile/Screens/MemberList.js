@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { apiUrl} from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
+import { useTheme } from '@rneui/themed';
 
 export default function MemberList() {
 
@@ -57,10 +58,30 @@ export default function MemberList() {
           }, []))
       }
     }).catch(error => console.error(error));
-}, [])
+  }, [])
+
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    itemContainer: {
+      borderBottomWidth: 1,
+      height: 44,
+      padding: 8,
+      fontSize: 16
+    },
+    headerSection: {
+      backgroundColor: theme.colors.primary,
+      fontWeight: 'bold',
+      height: 20,
+      paddingLeft: 16
+    },
+    listContainer: {
+      backgroundColor: "white"
+    }
+  });
 
   return (
-    <SectionList style={styles.listContainer}
+    <SectionList
         sections={list}
         renderItem={({item}) => (
             <ListItem bottomDivider onPress={() => onSelectMember(item.UserID)}
@@ -69,6 +90,10 @@ export default function MemberList() {
             }]}>
               <ListItem.Content>
                 <ListItem.Title>{item.GivenName + ' ' + item.Surname}</ListItem.Title>
+                <ListItem.Subtitle>{item.Email}</ListItem.Subtitle>
+              </ListItem.Content>
+              <ListItem.Content right>
+                <ListItem.Subtitle>{item.Phone}</ListItem.Subtitle>
               </ListItem.Content>
               <ListItem.Chevron/>
             </ListItem>
@@ -79,22 +104,3 @@ export default function MemberList() {
     />
   )
 }
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    borderBottomWidth: 1,
-    height: 44,
-    padding: 8,
-    fontSize: 16
-  },
-  headerSection: {
-    backgroundColor: "lightgrey",
-    color: "black",
-    fontWeight: 'bold',
-    height: 20,
-    paddingLeft: 16
-  },
-  listContainer: {
-    backgroundColor: "white"
-  }
-});

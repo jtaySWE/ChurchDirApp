@@ -5,6 +5,7 @@ import { Button, Card } from '@rneui/themed';
 import React, { useEffect } from 'react';
 import { updateUserAttributes } from 'aws-amplify/auth';
 import { apiUrl } from "../config.js";
+import { useTheme } from '@rneui/themed';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 /**
@@ -79,6 +80,20 @@ export default function Member({userID, readOnly = false}) {
       })
   }
 
+  // Customise UI
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'stretch',
+      backgroundColor: theme.colors.secondary
+    },
+    button: {
+      marginTop: 32
+    }
+  });
+
   return (
     <View style={styles.container}>
         <ScrollView>
@@ -98,13 +113,3 @@ export default function Member({userID, readOnly = false}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'stretch'
-  },
-  button: {
-    marginTop: 32
-  }
-});

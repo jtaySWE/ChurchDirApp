@@ -16,18 +16,21 @@ Amplify.configure(amplifyconfig);
 
 const theme = createTheme({
   lightColors: {
-    primary: '#e7e7e8',
-    secondary: '#07c7ed'
+    secondary: '#d1dbe4',
+    primary: '#7593af',
+    success: "#476f95"
   },
   darkColors: {
-    primary: '#000',
+    primary: '#194a7a',
   },
   mode: 'light',
-  components: {
-    Button: {
-      color: 'secondary'
+  /*components: {
+    Card: {
+      containerStyle: {
+        backgroundColor: '#476f95'
+      }
     }
-  }
+  }**/
 });
 
 export default function App() {
