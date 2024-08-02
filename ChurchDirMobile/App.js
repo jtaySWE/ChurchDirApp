@@ -10,15 +10,16 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react-native';
 import amplifyconfig from './src/amplifyconfiguration.json';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { ThemeProvider, createTheme, Icon } from '@rneui/themed';
+import { ThemeProvider, createTheme, Icon, useTheme } from '@rneui/themed';
 
 Amplify.configure(amplifyconfig);
 
-const theme = createTheme({
+const themes = createTheme({
   lightColors: {
-    secondary: '#d1dbe4',
-    primary: '#7593af',
-    success: "#476f95"
+    primary: '#003f5c',
+    secondary: '#bc5090',
+    success: '#ffa600',
+    background: '#ddd'
   },
   darkColors: {
     primary: '#194a7a',
@@ -38,6 +39,7 @@ export default function App() {
   
   function MainScreen() {
     const Tab = createBottomTabNavigator()
+    const { theme } = useTheme();
     const { user, signOut } = useAuthenticator((context) => [context.user]);
     const [isAdmin, setIsAdmin] = React.useState(false)
     
@@ -53,6 +55,10 @@ export default function App() {
       screenOptions={({route}) => ({
         headerRight: () => (<Icon name='logout' 
         onPress={signOut} type='simple-line-icon' style={styles.iconStyle}/>),
+        headerStyle: {backgroundColor: theme.colors.secondary},
+        tabBarInactiveTintColor: theme.colors.black,
+        tabBarActiveTintColor: theme.colors.white,
+        tabBarActiveBackgroundColor: theme.colors.primary,
         tabBarIcon: ({ color, size }) => {
           const icons = {
             Home: 'home',
@@ -62,9 +68,9 @@ export default function App() {
     
           return (
             <Icon
-              name={icons[route.name]}
               color={color}
               size={size}
+              name={icons[route.name]}
               type='simple-line-icon'
             />
           );
@@ -96,7 +102,7 @@ export default function App() {
             />
           )
         }}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themes}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.safeContainer}>
               <NavigationContainer>

@@ -87,7 +87,7 @@ export default function Member({userID, readOnly = false}) {
     container: {
       flex: 1,
       alignItems: 'stretch',
-      backgroundColor: theme.colors.secondary
+      backgroundColor: theme.colors.background
     },
     button: {
       marginTop: 32

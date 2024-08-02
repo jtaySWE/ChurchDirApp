@@ -71,6 +71,7 @@ export default function MemberList() {
     },
     headerSection: {
       backgroundColor: theme.colors.primary,
+      color: theme.colors.white,
       fontWeight: 'bold',
       height: 20,
       paddingLeft: 16
