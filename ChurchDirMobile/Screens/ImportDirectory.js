@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button } from '@rneui/themed';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
 import * as XLSX from 'xlsx';
@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 export default function ImportDirectory() {
 
     const [fileData, setFileData] = React.useState(null)
+    const filePicker = useRef(null)
 
     useEffect(() => {
         console.log(fileData)
@@ -55,7 +56,11 @@ export default function ImportDirectory() {
     return(
         <View style={styles.container}>
             <ScrollView>
-                <input type='file' onChange={handleFileUpload}/>
+                <input type='file' 
+                ref={filePicker}
+                onChange={handleFileUpload}
+                style={{display: 'none'}}/>
+                <Button title='Open file' onPress={() => filePicker.current.click()}/>
                 <Button title='Upload members' onPress={handleMembersUpload}/>
             </ScrollView>
         </View>
