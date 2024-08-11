@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button } from '@rneui/themed';
+import { Icon, useTheme } from '@rneui/themed';
 import React, { useEffect, useRef } from 'react';
 import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
@@ -53,23 +53,41 @@ export default function ImportDirectory() {
         }
     }
 
+    const { theme } = useTheme();
+
+    const styles = StyleSheet.create({
+        iconStyle: {
+            backgroundColor: theme.colors.primary,
+            borderRadius: 32,
+            height: 64,
+            width: 64,
+            justifyContent: 'center'
+        },
+        viewContainer: {
+            flex: 2,
+            justifyContent: 'space-evenly',
+            flexDirection: 'row'
+        }
+    });
+
     return(
-        <View style={styles.container}>
-            <ScrollView>
+        <View>
+            <View style={styles.viewContainer}>
                 <input type='file' 
                 ref={filePicker}
                 onChange={handleFileUpload}
                 style={{display: 'none'}}/>
-                <Button title='Open file' onPress={() => filePicker.current.click()}/>
-                <Button title='Upload members' onPress={handleMembersUpload}/>
-            </ScrollView>
+                <Icon onPress={() => filePicker.current.click()} 
+                type='simple-line-icon' 
+                name='doc' 
+                style={styles.iconStyle}
+                color={theme.colors.white}/>
+                <Icon onPress={handleMembersUpload} 
+                type='simple-line-icon' 
+                name='cloud-upload' 
+                style={styles.iconStyle}
+                color={theme.colors.white}/>
+            </View>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'stretch'
-    }
-  });
