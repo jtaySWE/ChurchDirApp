@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Icon, useTheme } from '@rneui/themed';
+import { useTheme, Button } from '@rneui/themed';
 import React, { useEffect, useRef } from 'react';
 import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
@@ -56,38 +56,37 @@ export default function ImportDirectory() {
     const { theme } = useTheme();
 
     const styles = StyleSheet.create({
-        iconStyle: {
-            backgroundColor: theme.colors.primary,
-            borderRadius: 32,
-            height: 64,
-            width: 64,
-            justifyContent: 'center'
-        },
         viewContainer: {
             flex: 2,
             justifyContent: 'space-evenly',
+            alignItems: 'center',
             flexDirection: 'row'
         }
     });
 
     return(
-        <View>
-            <View style={styles.viewContainer}>
-                <input type='file' 
+        <View style={styles.viewContainer}>
+            <input type='file' 
                 ref={filePicker}
                 onChange={handleFileUpload}
                 style={{display: 'none'}}/>
-                <Icon onPress={() => filePicker.current.click()} 
-                type='simple-line-icon' 
-                name='doc' 
-                style={styles.iconStyle}
-                color={theme.colors.white}/>
-                <Icon onPress={handleMembersUpload} 
-                type='simple-line-icon' 
-                name='cloud-upload' 
-                style={styles.iconStyle}
-                color={theme.colors.white}/>
-            </View>
+            <Button onPress={() => filePicker.current.click()}
+                    icon={{
+                        type: 'simple-line-icon', 
+                        name: 'doc', 
+                        color: theme.colors.white
+                    }}
+                    title="Select File">
+            </Button>
+            <Button onPress={handleMembersUpload}
+                    icon={{
+                        type: 'simple-line-icon', 
+                        name: 'cloud-upload',
+                        color: theme.colors.white
+                    }}
+                    disabled={!fileData}
+                    title="Upload">
+            </Button>
         </View>
     )
 }

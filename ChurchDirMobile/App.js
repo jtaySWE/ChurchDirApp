@@ -54,8 +54,9 @@ export default function App() {
       initialRouteName='Home'
       screenOptions={({route}) => ({
         headerRight: () => (<Icon name='logout' 
-        onPress={signOut} type='simple-line-icon' style={styles.iconStyle}/>),
+        onPress={signOut} type='simple-line-icon' style={styles.iconStyle} color={theme.colors.white}/>),
         headerStyle: {backgroundColor: theme.colors.secondary},
+        headerTintColor: theme.colors.white,
         tabBarInactiveTintColor: theme.colors.black,
         tabBarActiveTintColor: theme.colors.white,
         tabBarActiveBackgroundColor: theme.colors.primary,
