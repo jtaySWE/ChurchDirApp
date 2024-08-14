@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { useTheme, Button } from '@rneui/themed';
+import { useTheme, Button, Text } from '@rneui/themed';
 import React, { useEffect, useRef } from 'react';
 import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 export default function ImportDirectory() {
 
     const [fileData, setFileData] = React.useState(null)
+    const [filename, setFilename] = React.useState("")
     const filePicker = useRef(null)
 
     useEffect(() => {
@@ -16,6 +17,7 @@ export default function ImportDirectory() {
 
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
+        setFilename(file.name)
         const reader = new FileReader();
     
         reader.onload = (event) => {
@@ -57,10 +59,11 @@ export default function ImportDirectory() {
 
     const styles = StyleSheet.create({
         viewContainer: {
-            flex: 2,
+            flex: 1,
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            flexWrap: 'wrap'
         }
     });
 
@@ -87,6 +90,7 @@ export default function ImportDirectory() {
                     disabled={!fileData}
                     title="Upload">
             </Button>
+            <Text style={{marginLeft: 8}}>{filename}</Text>
         </View>
     )
 }
