@@ -4,6 +4,8 @@ import React, { useEffect, useRef } from 'react';
 import { apiUrl } from "../config.js";
 import { fetchAuthSession } from 'aws-amplify/auth';
 import * as XLSX from 'xlsx';
+import { pickSingle, types } from 'react-native-document-picker';
+import RNFS from 'react-native-fs';
 
 export default function ImportDirectory() {
 
@@ -12,7 +14,9 @@ export default function ImportDirectory() {
     const filePicker = useRef(null)
 
     useEffect(() => {
-        console.log(fileData)
+        if (fileData) {
+            alert(fileData[0].email)
+        }
     }, [fileData])
 
     const handleFileUpload = (e) => {
@@ -31,6 +35,31 @@ export default function ImportDirectory() {
     
         reader.readAsArrayBuffer(file);
     };
+
+    const chooseFile = async () => {
+        try {
+
+            // Open file picker
+            const result = await pickSingle({
+              mode: 'open',
+              type: types.xlsx
+            })
+            
+            // Read file before reading the data from excel spreadsheet
+            await RNFS.readFile(result.uri, 'base64').then(data => {
+                setFilename(result.name)
+                const workbook = XLSX.read(data, {type: 'base64'});
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const sheetData = XLSX.utils.sheet_to_json(sheet);
+                setFileData(sheetData);
+            }).catch(err => {
+                alert(err)
+            });
+          } catch (err) {
+            alert("Problem opening file: " + err)
+          }
+    }
 
     const handleMembersUpload = () => {
         const uploadMembersUrl = apiUrl + "Member"
@@ -69,11 +98,11 @@ export default function ImportDirectory() {
 
     return(
         <View style={styles.viewContainer}>
-            <input type='file' 
+            {/*<input type='file' 
                 ref={filePicker}
                 onChange={handleFileUpload}
-                style={{display: 'none'}}/>
-            <Button onPress={() => filePicker.current.click()}
+                style={{display: 'none'}}/>*/}
+            <Button onPress={chooseFile}
                     icon={{
                         type: 'simple-line-icon', 
                         name: 'doc', 
