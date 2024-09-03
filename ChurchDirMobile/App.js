@@ -60,6 +60,7 @@ export default function App() {
         tabBarInactiveTintColor: theme.colors.black,
         tabBarActiveTintColor: theme.colors.white,
         tabBarActiveBackgroundColor: theme.colors.primary,
+        tabBarHideOnKeyboard: true,
         tabBarIcon: ({ color, size }) => {
           const icons = {
             Home: 'home',
