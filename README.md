@@ -1,8 +1,8 @@
-# Grace Church mobile app project
+# Church mobile app project
 
 ## Overview
 
-The aim of this project is to create a mobile app for Grace Church's directory to list the members and allow them to add themselves
+The aim of this project is to create a mobile app for a church's directory to list the members and allow them to add themselves
 into the directory or modify their information.
 
 ## Code Structure
